@@ -1,0 +1,51 @@
+Package: strafica
+Type: Package
+Title: strafica
+Version: 0.1.0
+Authors@R: c(person("Johanna", "Piipponen", email="johanna.piipponen@ramboll.fi",
+                    role=c("cre", "ctb")),
+             person("Martijn", "Hollestelle", email="martijn.hollestelle@ramboll.fi",
+                    role=c("ctb")),
+             person("Roni", "Ilmola", email="roni.ilmola@ramboll.fi",
+                    role=c("ctb")),
+             person("Osmo", "Salomaa",
+                    role="aut"),
+             person("Teemu", "Hongas",
+                    role="ctb"),
+             person("Ramboll Finland Ltd",
+                    role="cph"))
+Description: strafica is a custom base package for R that provides a
+    miscellaneous collection of functions intended for regular use and for
+    specialized packages to depend on.
+URL: https://fi.ramboll.com/
+BugReports: https://github.com/strafica/strafica/issues
+License: MIT + file LICENSE
+ByteCompile: true
+Encoding: UTF-8
+RoxygenNote: 7.0.2
+Depends:
+    R (>= 2.14)
+Imports:
+    data.table (>= 1.9.4),
+    DBI,
+    ggplot2 (>= 2.0.0),
+    grDevices,
+    grid,
+    methods,
+    parallel,
+    plyr,
+    png,
+    rgdal,
+    rgeos (>= 0.3-8),
+    scales,
+    sp,
+    stats,
+    utils,
+    magrittr
+Suggests:
+    dplyr,
+    ggmap,
+    leaflet,
+    plotly,
+    RODBC,
+    testthat

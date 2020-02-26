@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^document\.R$
+^install\.R$
+^prompt\.bat$
+^source\.R$
