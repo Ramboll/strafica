@@ -8,7 +8,7 @@ Authors@R: c(person("Johanna", "Piipponen", email="johanna.piipponen@ramboll.fi"
                     role=c("ctb")),
              person("Roni", "Ilmola", email="roni.ilmola@ramboll.fi",
                     role=c("ctb")),
-             person("Osmo", "Salomaa",
+             person("Osmo", "Salomaa", email="otsaloma@iki.fi",
                     role="aut"),
              person("Teemu", "Hongas",
                     role="ctb"),
