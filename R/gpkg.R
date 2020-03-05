@@ -30,8 +30,15 @@ read.gpkg = function(fname, stringsAsFactors=FALSE, encoding="UTF-8", ...) {
 #' @param fname name of GeoPackage file to write.
 #' @param epsg projection code, see \code{\link{list.projections}}.
 #' @export write.gpkg
-write.gpkg = function(shapes, fname, epsg) {
+write.gpkg = function(shapes, fname, epsg = NULL) {
     shapes@data = recode(shapes@data, NULL, "UTF-8")
+    if(!is.null(epsg)) {
+        shapes@proj4string <- sp::CRS(proj.proj4(epsg))
+    } else {
+        message("###")
+        message("No projection code given, no CRS enclosed in .gpkg")
+        message("###")
+    }
     messagef("Writing '%s'...", fname)
     # Due to writeOGR failing to overwrite files,
     # write to tempdir and copy on from there.
