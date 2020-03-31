@@ -349,6 +349,7 @@ golden = function(x) {
 #' 
 #' @param x a vector containing factors.
 #' @return vector \code{x} converted to integers
+#' @export factor2int
 factor2int = function(x) {
     return(as.integer(levels(x))[x])
 } 
@@ -357,6 +358,7 @@ factor2int = function(x) {
 #' 
 #' @param x a vector containing factors.
 #' @return vector \code{x} converted to numerics.
+#' @export factor2num
 factor2num = function(x) {
     return(as.numeric(levels(x))[x])
 }
@@ -365,6 +367,7 @@ factor2num = function(x) {
 #' 
 #' @param x a vector containing factors.
 #' @return vector \code{x} converted to characters
+#' @export factor2chr
 factor2chr = function(x) {
     return(as.character(levels(x))[x])
 }

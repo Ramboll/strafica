@@ -4,13 +4,8 @@
 \alias{save.plot.pdf}
 \title{Save a \pkg{ggplot2} plot as PDF.}
 \usage{
-save.plot.pdf(
-  plot,
-  fname,
-  family = getOption("fontfamily"),
-  device = grDevices::cairo_pdf,
-  ...
-)
+save.plot.pdf(plot, fname, family = getOption("fontfamily"),
+  device = grDevices::cairo_pdf, ...)
 }
 \arguments{
 \item{plot}{a \pkg{ggplot2} plot object.}

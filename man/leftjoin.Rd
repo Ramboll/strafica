@@ -4,13 +4,8 @@
 \alias{leftjoin}
 \title{Join two data frames together.}
 \usage{
-leftjoin(
-  x,
-  y,
-  by = intersect(names(x), names(y)),
-  overwrite = FALSE,
-  missing = NA
-)
+leftjoin(x, y, by = intersect(names(x), names(y)), overwrite = FALSE,
+  missing = NA)
 }
 \arguments{
 \item{x}{a data frame.}

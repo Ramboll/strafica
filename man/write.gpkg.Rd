@@ -4,7 +4,7 @@
 \alias{write.gpkg}
 \title{Write points, lines or polygons to a GeoPackage file.}
 \usage{
-write.gpkg(shapes, fname, epsg)
+write.gpkg(shapes, fname, epsg = NULL)
 }
 \arguments{
 \item{shapes}{a \code{Spatial*DataFrame} object.}

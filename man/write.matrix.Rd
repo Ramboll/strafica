@@ -4,16 +4,8 @@
 \alias{write.matrix}
 \title{Write matrix to file.}
 \usage{
-write.matrix(
-  x,
-  fname,
-  quote = FALSE,
-  sep = "\\t",
-  na = "",
-  row.names = FALSE,
-  col.names = FALSE,
-  ...
-)
+write.matrix(x, fname, quote = FALSE, sep = "\\t", na = "",
+  row.names = FALSE, col.names = FALSE, ...)
 }
 \arguments{
 \item{x}{The object to be written, preferably a matrix or data frame.}

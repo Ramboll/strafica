@@ -4,23 +4,12 @@
 \alias{theme_strafica}
 \title{A generic \pkg{ggplot2} theme.}
 \usage{
-theme_strafica(
-  base_size = 8,
-  base_family = "",
-  axis.x = TRUE,
-  axis.y = TRUE,
-  grid.colour = "grey83",
-  grid.x = FALSE,
-  grid.y = TRUE,
-  grid.minor.x = FALSE,
-  grid.minor.y = FALSE,
-  legend.title = FALSE,
-  line.colour = "grey25",
-  panel.border = TRUE,
-  panel.spacing = 0,
-  strip.background = TRUE,
-  strip.colour = "grey87"
-)
+theme_strafica(base_size = 8, base_family = "", axis.x = TRUE,
+  axis.y = TRUE, grid.colour = "grey83", grid.x = FALSE,
+  grid.y = TRUE, grid.minor.x = FALSE, grid.minor.y = FALSE,
+  legend.title = FALSE, line.colour = "grey25", panel.border = TRUE,
+  panel.spacing = 0, strip.background = TRUE,
+  strip.colour = "grey87")
 }
 \arguments{
 \item{base_size}{base font size.}

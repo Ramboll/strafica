@@ -4,7 +4,8 @@
 \alias{sp.to.polys}
 \title{Convert \pkg{sp} polygons to its data frame equivalent.}
 \usage{
-sp.to.polys(shapes, fun = identity, area.min = NULL, data.only = FALSE)
+sp.to.polys(shapes, fun = identity, area.min = NULL,
+  data.only = FALSE)
 }
 \arguments{
 \item{shapes}{a \code{SpatialPolygonsDataFrame} object.}

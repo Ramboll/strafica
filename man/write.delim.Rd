@@ -4,15 +4,8 @@
 \alias{write.delim}
 \title{Write tab-delimited file.}
 \usage{
-write.delim(
-  x,
-  fname,
-  quote = FALSE,
-  sep = "\\t",
-  na = "",
-  row.names = FALSE,
-  ...
-)
+write.delim(x, fname, quote = FALSE, sep = "\\t", na = "",
+  row.names = FALSE, ...)
 }
 \arguments{
 \item{x}{The object to be written, preferably a matrix or data frame.}
