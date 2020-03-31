@@ -13,7 +13,8 @@ buffer.polys(polys, width, byid, quadsegs = 10, ...)
 
 \method{buffer.polys}{list}(polys, width, byid, quadsegs = 10, ...)
 
-\method{buffer.polys}{SpatialPolygonsDataFrame}(polys, width, byid, quadsegs = 10, ...)
+\method{buffer.polys}{SpatialPolygonsDataFrame}(polys, width, byid,
+  quadsegs = 10, ...)
 }
 \arguments{
 \item{polys}{a data frame of polygon outlines or a list as returned by

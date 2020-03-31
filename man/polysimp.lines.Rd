@@ -4,14 +4,8 @@
 \alias{polysimp.lines}
 \title{Simplify lines by dropping visually least significant points.}
 \usage{
-polysimp.lines(
-  lines,
-  epsilon,
-  static = NULL,
-  max.length = Inf,
-  keep.double = TRUE,
-  method = dp
-)
+polysimp.lines(lines, epsilon, static = NULL, max.length = Inf,
+  keep.double = TRUE, method = dp)
 }
 \arguments{
 \item{lines}{a data frame of lines.}

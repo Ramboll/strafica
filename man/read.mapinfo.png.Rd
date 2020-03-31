@@ -4,14 +4,8 @@
 \alias{read.mapinfo.png}
 \title{Read and crop geographically referenced PNG-file saved by MapInfo.}
 \usage{
-read.mapinfo.png(
-  fname,
-  xmin = NULL,
-  xmax = NULL,
-  ymin = NULL,
-  ymax = NULL,
-  cache = FALSE
-)
+read.mapinfo.png(fname, xmin = NULL, xmax = NULL, ymin = NULL,
+  ymax = NULL, cache = FALSE)
 }
 \arguments{
 \item{fname}{name of PNG-file.}

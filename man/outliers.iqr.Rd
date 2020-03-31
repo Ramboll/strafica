@@ -4,7 +4,8 @@
 \alias{outliers.iqr}
 \title{Find outliers based on inter-quartile range.}
 \usage{
-outliers.iqr(x, lower = TRUE, upper = TRUE, coeff = 1.5, na.rm = TRUE)
+outliers.iqr(x, lower = TRUE, upper = TRUE, coeff = 1.5,
+  na.rm = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector.}

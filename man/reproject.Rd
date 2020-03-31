@@ -11,15 +11,20 @@
 \usage{
 reproject(coords, from, to, names = c("x", "y"), fun = identity)
 
-\method{reproject}{data.frame}(coords, from, to, names = c("x", "y"), fun = identity)
+\method{reproject}{data.frame}(coords, from, to, names = c("x", "y"),
+  fun = identity)
 
-\method{reproject}{matrix}(coords, from, to, names = NULL, fun = identity)
+\method{reproject}{matrix}(coords, from, to, names = NULL,
+  fun = identity)
 
-\method{reproject}{SpatialLinesDataFrame}(coords, from, to, names = NULL, fun = NULL)
+\method{reproject}{SpatialLinesDataFrame}(coords, from, to, names = NULL,
+  fun = NULL)
 
-\method{reproject}{SpatialPointsDataFrame}(coords, from, to, names = NULL, fun = NULL)
+\method{reproject}{SpatialPointsDataFrame}(coords, from, to,
+  names = NULL, fun = NULL)
 
-\method{reproject}{SpatialPolygonsDataFrame}(coords, from, to, names = NULL, fun = NULL)
+\method{reproject}{SpatialPolygonsDataFrame}(coords, from, to,
+  names = NULL, fun = NULL)
 }
 \arguments{
 \item{coords}{a data frame with columns "x" and "y" or

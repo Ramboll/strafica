@@ -4,14 +4,8 @@
 \alias{scale.segments}
 \title{Construct scaled polygons from segments.}
 \usage{
-\method{scale.segments}{not.an.s3.method}(
-  segments,
-  value,
-  max.width,
-  max.at = max(value, na.rm = TRUE),
-  tol = 0,
-  fun = identity
-)
+\method{scale.segments}{not.an.s3.method}(segments, value, max.width,
+  max.at = max(value, na.rm = TRUE), tol = 0, fun = identity)
 }
 \arguments{
 \item{segments}{a data frame of segments.}

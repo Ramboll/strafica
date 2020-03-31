@@ -5,17 +5,9 @@
 \alias{ddply}
 \title{ddply from plyr.}
 \usage{
-ddply(
-  .data,
-  .variables,
-  .fun = NULL,
-  ...,
-  .progress = "none",
-  .inform = FALSE,
-  .drop = TRUE,
-  .parallel = FALSE,
-  .paropts = NULL
-)
+ddply(.data, .variables, .fun = NULL, ..., .progress = "none",
+  .inform = FALSE, .drop = TRUE, .parallel = FALSE,
+  .paropts = NULL)
 }
 \arguments{
 \item{.data}{data frame to be processed}
