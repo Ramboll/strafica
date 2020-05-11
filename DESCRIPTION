@@ -2,14 +2,14 @@ Package: strafica
 Type: Package
 Title: strafica
 Version: 0.1.0.9000
-Authors@R: c(person("Johanna", "Piipponen", email="johanna.piipponen@ramboll.fi",
+Authors@R: c(person("Martijn", "Hollestelle", email="martijn.hollestelle@ramboll.fi",
                     role=c("cre", "ctb")),
-             person("Martijn", "Hollestelle", email="martijn.hollestelle@ramboll.fi",
-                    role=c("ctb")),
              person("Roni", "Ilmola", email="roni.ilmola@ramboll.fi",
                     role=c("ctb")),
              person("Osmo", "Salomaa", email="otsaloma@iki.fi",
                     role="aut"),
+             person("Johanna", "Piipponen",
+                    role=c("ctb")),
              person("Teemu", "Hongas",
                     role="ctb"),
              person("Ramboll Finland Ltd",
@@ -17,7 +17,7 @@ Authors@R: c(person("Johanna", "Piipponen", email="johanna.piipponen@ramboll.fi"
 Description: strafica is a custom base package for R that provides a
     miscellaneous collection of functions intended for regular use and for
     specialized packages to depend on.
-URL: https://fi.ramboll.com/
+URL: https://ramboll.com/digital-mobility-lab
 BugReports: https://github.com/strafica/strafica/issues
 License: MIT + file LICENSE
 ByteCompile: true
