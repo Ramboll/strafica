@@ -34,6 +34,7 @@ read.shape = function(fname, stringsAsFactors=FALSE, encoding="Latin1", ...) {
 #' @param epsg projection code, see \code{\link{list.projections}}.
 #' @export write.shape
 write.shape = function(shapes, fname, epsg) {
+    message("Writing shapefile... Please consider geopackage instead using `write.gpkg()`.")
     if (is.na(proj.shape(epsg)))
         stop(sprintf("EPSG %s not supported", epsg))
     # Latin 1 is the original standard DBF encoding.
