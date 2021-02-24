@@ -1,10 +1,8 @@
 place	epsg	x	y
-Aleksanterinkatu/Kaivokatu, Helsinki	2393	3385980	6674792
 Aleksanterinkatu/Kaivokatu, Helsinki	3067	385857	6671990
 Aleksanterinkatu/Kaivokatu, Helsinki	3879	25496830	6672882
 Aleksanterinkatu/Kaivokatu, Helsinki	3857	2776629	8437419
 Aleksanterinkatu/Kaivokatu, Helsinki	4326	24.94289659	60.16881678
-Puijonkatu/Tulliportinkatu, Kuopio	2393	3534723	6976808
 Puijonkatu/Tulliportinkatu, Kuopio	3067	534538	6973885
 Puijonkatu/Tulliportinkatu, Kuopio	3857	3081256	9074140
 Puijonkatu/Tulliportinkatu, Kuopio	4326	27.67939217	62.8933145
