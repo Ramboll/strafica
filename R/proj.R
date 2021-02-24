@@ -10,7 +10,7 @@
 #' @return A data frame of EPSG codes and names.
 #' @export list.projections
 list.projections = function() {
-    epsg = c(2056, 2391, 2392, 2393, 3067, 3776, 3857, 3877, 3878, 3879, 3880, 4258, 4326, 28992, 50001, 99999)
+    epsg = c(2056, 2391, 2392, 2393, 3067, 3776, 3857, 3877, 3878, 3879, 3880, 4258, 4326, 28992, 31467, 32632, 50001, 99999)
     name = sapply(epsg, proj.name)
     data.frame(name=name, epsg=epsg, row.names=seq_along(epsg))
 }
@@ -60,6 +60,8 @@ proj.name = function(epsg)
       '3880'='ETRS-GK26',
       '4258'='ETRS89',
       '4326'='WGS 84',
+      '31467'='DHDN / 3-degree Gauss-Kruger zone 3',
+      '32632'='WGS 84 / UTM zone 32N',
       '28992'='Amersfoort / RD New',
       '50001'='KKJ3 (1996)',
       '99999'='Unknown'
@@ -113,6 +115,8 @@ proj.proj4 = function(epsg) {
             '4258'='+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs',
             '4326'='+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs',
             '28992'='+proj=stere +lat_0=52.156160556 +lon_0=5.387638889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=593,26,478,0,0,0,0 +units=m +no_defs',
+            '31467'='+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 +ellps=bessel +towgs84=598.1,73.7,418.2,0.202,0.045,-2.455,6.7 +units=m +no_defs',
+            '32632'='+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs',
             '50001'='+proj=tmerc +lat_0=0 +lon_0=27 +k=1 +x_0=3500000 +y_0=0 +ellps=intl +towgs84=-87,-98,-121,0,0,0,0 +units=m +no_defs',
             '99999'=''
             )[as.character(epsg)]
@@ -144,6 +148,8 @@ proj.shape = function(epsg)
       '3880'='PROJCS["ETRS89_ETRS_GK26FIN_2010",GEOGCS["GCS_ETRS89",DATUM["D_ETRS_1989",SPHEROID["Geodetic_Reference_System_of_1980",6378137,298.2572221008916]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",26],PARAMETER["scale_factor",1],PARAMETER["false_easting",26500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '4258'='GEOGCS["Europe ETRS 89 (EUREF 89 System), Latitude-Longitude; Degrees",DATUM["D_ETRS89",SPHEROID["World_Geodetic_System_of_1984_GEM_10C",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]',
       '4326'='GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]',
+      '31467'='PROJCS["DHDN_3_degree_Gauss_Kruger_zone_3",GEOGCS["GCS_DHDN",DATUM["D_Deutsches_Hauptdreiecksnetz",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",1],PARAMETER["false_easting",3500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
+      '32632'='PROJCS["WGS_1984_UTM_Zone_32N",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '28992'='PROJCS["RD_New",GEOGCS["GCS_Amersfoort",DATUM["D_Amersfoort",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["Degree",0.0174532925199432955]],PROJECTION["Double_Stereographic"],PARAMETER["False_Easting",155000],PARAMETER["False_Northing",463000],PARAMETER["Central_Meridian",5.38763888888889],PARAMETER["Scale_Factor",0.9999079],PARAMETER["Latitude_Of_Origin",52.15616055555555],UNIT["Meter",1]]',
       '50001'='PROJCS["Finnish KKJ 3 (YKJ)",GEOGCS["ERP50-FI",DATUM["D_ERP50-FI",SPHEROID["Hayford_1924_aka_1909_same_as_International_1924",6378388,297.0000000000601]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",27],PARAMETER["scale_factor",1],PARAMETER["false_easting",3500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '99999'=''
@@ -169,20 +175,20 @@ reproject = function(coords, from, to, names=c("x", "y"), fun=identity)
 #' @export
 reproject.data.frame = function(coords, from, to, names=c("x", "y"),
                                 fun=identity) {
-    
-    from = proj.proj4(from)
-    to = proj.proj4(to)
-    stopifnot(is.character(from))
-    stopifnot(is.character(to))
     if (from == to)
         return(coords)
     xname = names[1]
     yname = names[2]
+    # Do not convert rows where the coordinate
+    # values are NA. This is typical in line
+    # data where different lines are seperated
+    # with a collumn where {x,y} = NA
     m = !is.na(coords[,xname]) & !is.na(coords[,yname])
-    shapes = sp::SpatialPoints(cbind(coords[m,xname], coords[m,yname]), sp::CRS(from))
-    shapes = sp::spTransform(shapes, sp::CRS(to))
-    coords[m,xname] = fun(shapes@coords[,1])
-    coords[m,yname] = fun(shapes@coords[,2])
+    shapes = sf::st_as_sf(coords, coords = c("x","y"), crs = from)
+    shapes = sf::st_transform(shapes, crs = to)
+    shapes = sf::st_coordinates(shapes)
+    coords[m,xname] = shapes[,1]
+    coords[m,yname] = shapes[,2]
     coords[!m,xname] = NA
     coords[!m,yname] = NA
     return(coords)
@@ -192,17 +198,14 @@ reproject.data.frame = function(coords, from, to, names=c("x", "y"),
 #' @method reproject matrix
 #' @export
 reproject.matrix = function(coords, from, to, names=NULL, fun=identity) {
-    from = proj.proj4(from)
-    to = proj.proj4(to)
-    stopifnot(is.character(from))
-    stopifnot(is.character(to))
     if (from == to)
         return(coords)
     m = !is.na(coords[,1]) & !is.na(coords[,2])
-    shapes = sp::SpatialPoints(cbind(coords[m,1], coords[m,2]), sp::CRS(from))
-    shapes = sp::spTransform(shapes, sp::CRS(to))
-    coords[m,1] = fun(shapes@coords[,1])
-    coords[m,2] = fun(shapes@coords[,2])
+    shapes = sf::st_as_sf(coords, coords = 1:2, crs = from)
+    shapes = sf::st_transform(shapes, crs = to)
+    shapes = sf::st_coordinates(shapes)
+    coords[m,1] = shapes[,1]
+    coords[m,2] = shapes[,2]
     coords[!m,1] = NA
     coords[!m,2] = NA
     return(coords)

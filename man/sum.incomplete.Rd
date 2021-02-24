@@ -4,8 +4,7 @@
 \alias{sum.incomplete}
 \title{Join two data frames and sum values of one column.}
 \usage{
-\method{sum.incomplete}{not.an.s3.method}(df0, df1, by, name,
-  missing = 0)
+\method{sum.incomplete}{not.an.s3.method}(df0, df1, by, name, missing = 0)
 }
 \arguments{
 \item{df0}{data frame with first value for \code{name}.}

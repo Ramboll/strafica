@@ -8,11 +8,9 @@
 \usage{
 buffer.points(points, width, byid, quadsegs = 10, ...)
 
-\method{buffer.points}{data.frame}(points, width, byid, quadsegs = 10,
-  ...)
+\method{buffer.points}{data.frame}(points, width, byid, quadsegs = 10, ...)
 
-\method{buffer.points}{SpatialPointsDataFrame}(points, width, byid,
-  quadsegs = 10, ...)
+\method{buffer.points}{SpatialPointsDataFrame}(points, width, byid, quadsegs = 10, ...)
 }
 \arguments{
 \item{points}{a data frame of points or

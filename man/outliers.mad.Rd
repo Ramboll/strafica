@@ -4,8 +4,7 @@
 \alias{outliers.mad}
 \title{Find outliers based on median absolute deviation.}
 \usage{
-outliers.mad(x, lower = TRUE, upper = TRUE, coeff = 3.5,
-  na.rm = TRUE)
+outliers.mad(x, lower = TRUE, upper = TRUE, coeff = 3.5, na.rm = TRUE)
 }
 \arguments{
 \item{x}{a numeric vector.}

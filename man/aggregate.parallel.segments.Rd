@@ -4,8 +4,7 @@
 \alias{aggregate.parallel.segments}
 \title{Aggregate values of equidirectional parallel segments.}
 \usage{
-\method{aggregate.parallel.segments}{not.an.s3.method}(segments, name,
-  radius, angle, by = NULL)
+\method{aggregate.parallel.segments}{not.an.s3.method}(segments, name, radius, angle, by = NULL)
 }
 \arguments{
 \item{segments}{a data frame of segments.}

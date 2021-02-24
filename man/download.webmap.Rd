@@ -4,8 +4,18 @@
 \alias{download.webmap}
 \title{Download and merge webmap tiles to form one image file.}
 \usage{
-download.webmap(template, zoom, xmin, xmax, ymin, ymax, fname,
-  size = 256, epsg = 4326, wait.range = c(1, 3))
+download.webmap(
+  template,
+  zoom,
+  xmin,
+  xmax,
+  ymin,
+  ymax,
+  fname,
+  size = 256,
+  epsg = 4326,
+  wait.range = c(1, 3)
+)
 }
 \arguments{
 \item{template}{URL template with variables $X, $Y and $Z,

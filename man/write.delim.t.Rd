@@ -4,8 +4,16 @@
 \alias{write.delim.t}
 \title{Write transpose to tab-delimited file.}
 \usage{
-write.delim.t(x, fname, quote = FALSE, sep = "\\t", na = "",
-  row.names = TRUE, col.names = FALSE, ...)
+write.delim.t(
+  x,
+  fname,
+  quote = FALSE,
+  sep = "\\t",
+  na = "",
+  row.names = TRUE,
+  col.names = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{The object to be written, preferably a matrix or data frame.}
