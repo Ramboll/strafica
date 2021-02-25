@@ -13,8 +13,7 @@ buffer.lines(lines, width, byid, quadsegs = 10, ...)
 
 \method{buffer.lines}{list}(lines, width, byid, quadsegs = 10, ...)
 
-\method{buffer.lines}{SpatialLinesDataFrame}(lines, width, byid,
-  quadsegs = 10, ...)
+\method{buffer.lines}{SpatialLinesDataFrame}(lines, width, byid, quadsegs = 10, ...)
 }
 \arguments{
 \item{lines}{a data frame of lines or a list as returned by

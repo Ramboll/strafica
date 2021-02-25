@@ -4,8 +4,15 @@
 \alias{polysimp.polys}
 \title{Simplify polygons by dropping visually least significant points.}
 \usage{
-polysimp.polys(polys, epsilon, static = NULL, max.length = Inf,
-  keep.triple = TRUE, method = dp, pass = 1)
+polysimp.polys(
+  polys,
+  epsilon,
+  static = NULL,
+  max.length = Inf,
+  keep.triple = TRUE,
+  method = dp,
+  pass = 1
+)
 }
 \arguments{
 \item{polys}{a data frame of polygons.}

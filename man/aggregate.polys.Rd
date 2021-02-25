@@ -10,8 +10,7 @@ aggregate.polys(polys, by, data = NULL)
 
 \method{aggregate.polys}{list}(polys, by, data = NULL)
 
-\method{aggregate.polys}{SpatialPolygonsDataFrame}(polys, by,
-  data = NULL)
+\method{aggregate.polys}{SpatialPolygonsDataFrame}(polys, by, data = NULL)
 }
 \arguments{
 \item{polys}{polygons as either a list as returned by

@@ -8,7 +8,7 @@ test_that("projections work", {
             out = reproject(points[i,,drop=FALSE],
                             from=points$epsg[i],
                             to=points$epsg[j])
-            
+
             error = eucd(out$x, out$y, points$x[j], points$y[j])
             if (out$x > 1000) {
                 # Metric coordinates
@@ -17,7 +17,7 @@ test_that("projections work", {
                          points$epsg[i],
                          points$epsg[j],
                          error)
-                
+
                 expect_false(error > 3)
             } else {
                 # Degrees
@@ -26,7 +26,7 @@ test_that("projections work", {
                          points$epsg[i],
                          points$epsg[j],
                          error)
-                
+
                 expect_false(error > 0.0001)
             }
         }

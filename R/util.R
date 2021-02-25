@@ -294,7 +294,7 @@ downclass = function(df) {
 }
 
 #' Return directory of current file.
-#' 
+#'
 #' Use only when called from Rscript or sourced via R console!
 #' @return A character string
 #' @export file_location
@@ -346,16 +346,16 @@ golden = function(x) {
 }
 
 #' Convert factors to integer without loss of information
-#' 
+#'
 #' @param x a vector containing factors.
 #' @return vector \code{x} converted to integers
 #' @export factor2int
 factor2int = function(x) {
     return(as.integer(levels(x))[x])
-} 
+}
 
 #' Convert factors to numeric without loss of information
-#' 
+#'
 #' @param x a vector containing factors.
 #' @return vector \code{x} converted to numerics.
 #' @export factor2num
@@ -364,12 +364,20 @@ factor2num = function(x) {
 }
 
 #' Convert factors to character without loss of information
-#' 
+#'
 #' @param x a vector containing factors.
 #' @return vector \code{x} converted to characters
 #' @export factor2chr
 factor2chr = function(x) {
     return(as.character(levels(x))[x])
+}
+
+#'  Get file extension of a filename or path
+#'
+#'  @param file_path file name of path to file
+#'  @export get_file_ext
+get_file_ext = function(file_path) {
+    substr(file_path, gregexpr("\\.[^\\.]*$", file_path)[[1]][1], nchar(file_path))
 }
 
 #' Show HTML help in browser.
