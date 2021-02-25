@@ -2,11 +2,16 @@
 % Please edit documentation in R/util.R
 \name{get_file_ext}
 \alias{get_file_ext}
-\title{Get file extension of a filename or path}
+\title{Get file extension from a filepath}
 \usage{
 get_file_ext(file_path)
 }
+\arguments{
+\item{file_path}{a file path}
+}
+\value{
+a character string
+}
 \description{
-@param file_path file name of path to file
- @export get_file_ext
+Get file extension from a filepath
 }
