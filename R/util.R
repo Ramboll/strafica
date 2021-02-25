@@ -372,10 +372,13 @@ factor2chr = function(x) {
     return(as.character(levels(x))[x])
 }
 
-#'  Get file extension of a filename or path
+
+#' Get file extension from a filepath
 #'
-#'  @param file_path file name of path to file
-#'  @export get_file_ext
+#' @param file_path a file path
+#'
+#' @return a character string
+#' @export get_file_ext
 get_file_ext = function(file_path) {
     substr(file_path, gregexpr("\\.[^\\.]*$", file_path)[[1]][1], nchar(file_path))
 }
