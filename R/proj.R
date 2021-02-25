@@ -10,7 +10,7 @@
 #' @return A data frame of EPSG codes and names.
 #' @export list.projections
 list.projections = function() {
-    epsg = c(2056, 2391, 2392, 2393, 3067, 3776, 3857, 3877, 3878, 3879, 3880, 4258, 4326, 28992, 31467, 32632, 50001, 99999)
+    epsg = c(2056, 2391, 2392, 2393, 3067, 3776, 3857, 3877, 3878, 3879, 3880, 4258, 4326, 4839, 28992, 31467, 32632, 50001, 99999)
     name = sapply(epsg, proj.name)
     data.frame(name=name, epsg=epsg, row.names=seq_along(epsg))
 }
@@ -60,9 +60,10 @@ proj.name = function(epsg)
       '3880'='ETRS-GK26',
       '4258'='ETRS89',
       '4326'='WGS 84',
+      '4839'='ETRS89 / LCC Germany (N-E)',
+      '28992'='Amersfoort / RD New',
       '31467'='DHDN / 3-degree Gauss-Kruger zone 3',
       '32632'='WGS 84 / UTM zone 32N',
-      '28992'='Amersfoort / RD New',
       '50001'='KKJ3 (1996)',
       '99999'='Unknown'
       )[as.character(epsg)]
@@ -114,6 +115,7 @@ proj.proj4 = function(epsg) {
             '3880'='+proj=tmerc +lat_0=0 +lon_0=26 +k=1 +x_0=26500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
             '4258'='+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs',
             '4326'='+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs',
+            '4839'='+proj=lcc +lat_1=48.66666666666666 +lat_2=53.66666666666666 +lat_0=51 +lon_0=10.5 +x_0=0 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
             '28992'='+proj=stere +lat_0=52.156160556 +lon_0=5.387638889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +towgs84=593,26,478,0,0,0,0 +units=m +no_defs',
             '31467'='+proj=tmerc +lat_0=0 +lon_0=9 +k=1 +x_0=3500000 +y_0=0 +ellps=bessel +towgs84=598.1,73.7,418.2,0.202,0.045,-2.455,6.7 +units=m +no_defs',
             '32632'='+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs',
@@ -148,6 +150,7 @@ proj.shape = function(epsg)
       '3880'='PROJCS["ETRS89_ETRS_GK26FIN_2010",GEOGCS["GCS_ETRS89",DATUM["D_ETRS_1989",SPHEROID["Geodetic_Reference_System_of_1980",6378137,298.2572221008916]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",26],PARAMETER["scale_factor",1],PARAMETER["false_easting",26500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '4258'='GEOGCS["Europe ETRS 89 (EUREF 89 System), Latitude-Longitude; Degrees",DATUM["D_ETRS89",SPHEROID["World_Geodetic_System_of_1984_GEM_10C",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]',
       '4326'='GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]]',
+      '4839'='PROJCS["ETRS89_LCC_Germany_N_E",GEOGCS["GCS_ETRS_1989",DATUM["D_ETRS_1989",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"],PARAMETER["standard_parallel_1",48.66666666666666],PARAMETER["standard_parallel_2",53.66666666666666],PARAMETER["latitude_of_origin",51],PARAMETER["central_meridian",10.5],PARAMETER["false_easting",0],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '31467'='PROJCS["DHDN_3_degree_Gauss_Kruger_zone_3",GEOGCS["GCS_DHDN",DATUM["D_Deutsches_Hauptdreiecksnetz",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",1],PARAMETER["false_easting",3500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '32632'='PROJCS["WGS_1984_UTM_Zone_32N",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",9],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '28992'='PROJCS["RD_New",GEOGCS["GCS_Amersfoort",DATUM["D_Amersfoort",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0],UNIT["Degree",0.0174532925199432955]],PROJECTION["Double_Stereographic"],PARAMETER["False_Easting",155000],PARAMETER["False_Northing",463000],PARAMETER["Central_Meridian",5.38763888888889],PARAMETER["Scale_Factor",0.9999079],PARAMETER["Latitude_Of_Origin",52.15616055555555],UNIT["Meter",1]]',
