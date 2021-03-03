@@ -187,7 +187,7 @@ reproject.data.frame = function(coords, from, to, names=c("x", "y"),
     # data where different lines are seperated
     # with a collumn where {x,y} = NA
     m = !is.na(coords[,xname]) & !is.na(coords[,yname])
-    shapes = sf::st_as_sf(coords[m,], coords = c("x","y"), crs = from)
+    shapes = sf::st_as_sf(coords[m,], coords = names, crs = from)
     shapes = sf::st_transform(shapes, crs = to)
     shapes = sf::st_coordinates(shapes)
     coords[m,xname] = shapes[,1]
