@@ -32,3 +32,9 @@ test_that("projections work", {
         }
     }
 })
+
+test_that("reproject lines with NAs work", {
+    lines = read.delim("test-na.txt")
+    expect_identical(reproject(lines, from = 4326, to = 4326), lines)
+    expect_identical(is.na(reproject(lines, from = 4326, to = 3067)), is.na(lines))
+})
