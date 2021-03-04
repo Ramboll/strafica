@@ -7,7 +7,7 @@
 read_geospatial_file(fname)
 }
 \arguments{
-\item{fname}{name of geospatial file}
+\item{fname}{name of geospatial file (.shp, .gpkg or .TAB)}
 }
 \value{
 A \code{Spatial*DataFrame} object.
