@@ -6,3 +6,5 @@ Aleksanterinkatu/Kaivokatu, Helsinki	4326	24.94289659	60.16881678
 Puijonkatu/Tulliportinkatu, Kuopio	3067	534538	6973885
 Puijonkatu/Tulliportinkatu, Kuopio	3857	3081256	9074140
 Puijonkatu/Tulliportinkatu, Kuopio	4326	27.67939217	62.8933145
+Turning Torso, Malmö	4326	12.9763388	55.61325
+Turning Torso, Malmö	3008	117002	6165627
