@@ -10,7 +10,7 @@ To install from a git repository, open an R prompt and run
 ```r
 # install.packages("devtools")
 library(devtools)
-install_git("git@github.com:strafica/strafica.git")
+install_git("git@github.com:ramboll/strafica.git")
 ```
 
 or to install from source, open a shell prompt (use `prompt.bat`
