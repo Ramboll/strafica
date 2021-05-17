@@ -1,6 +1,4 @@
 # -*- coding: us-ascii-unix -*-
-context("test-proj")
-
 test_that("projections work", {
     points = read.delims("test-proj.txt")
     for (i in rows.along(points)) {
