@@ -26,6 +26,7 @@ find.containers = function(x, y, outlines) {
 }
 
 #' Find polygons in which points are located.
+#'
 #' @param x a numeric vector of X-coordinates of points.
 #' @param y a numeric vector of Y-coordinates of points.
 #' @param outlines a data frame of polygon outlines.
@@ -63,4 +64,37 @@ points.in.polys = function(x, y, outlines, data=NULL) {
     output = unlist(output)
     progress.final(time.start)
     return(output)
+}
+
+#' Convert a data frame of groups of points into lines
+#'
+#' @param points a data frame of points with x and y coordinate.
+#' @param group_id column identifying the group of lines to be formed in one
+#' line.
+#'
+#' @return A list with two data frames: data and lines.
+#' @export points_to_lines
+#'
+#' @examples
+#' \dontrun{points.in.lines(points, trip_id)}
+points_to_lines = function(points, group_id) {
+    # Add attribute identifier eid
+    points$eid = classify(points[, group_id])
+    # split attribute and geometry data
+    coords = c("x", "y")
+    lines = list(
+        data = points[, !names(points) %in% coords],
+        lines = points[, c("eid", coords)]
+    )
+    # Add NA row to indicate line end
+    lines$lines = mcddply(lines$lines, .(eid), function(line) {
+        return(rbind(line, c(line$eid[1], NA,NA)))
+    })
+    lines$lines$sid = 1
+    lines$lines = lines$lines[, c("eid", "sid", "x", "y")]
+    # Aggregate data of line points to single observation
+    lines$data = lines$data[, c(group_id, "eid")]
+    lines$data = dedup(lines$data)
+    #
+    return(lines)
 }
