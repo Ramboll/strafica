@@ -87,7 +87,7 @@ points_to_lines = function(points, group_id) {
         lines = points[, c("eid", coords)]
     )
     # Add NA row to indicate line end
-    lines$lines = mcddply(lines$lines, .(eid), function(line) {
+    lines$lines = ddply(lines$lines, .(eid), function(line) {
         return(rbind(line, c(line$eid[1], NA,NA)))
     })
     lines$lines$sid = 1
