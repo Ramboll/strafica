@@ -10,7 +10,7 @@
 #' @return A data frame of EPSG codes and names.
 #' @export list.projections
 list.projections = function() {
-    epsg = c(2056, 2391, 2392, 2393, 3008, 3067, 3776, 3857, 3877, 3878, 3879, 3880, 4258, 4326, 4839, 28992, 31467, 32632, 50001, 99999)
+    epsg = c(2056, 2391, 2392, 2393, 3006, 3008, 3067, 3776, 3857, 3877, 3878, 3879, 3880, 4258, 4326, 4839, 28992, 31467, 32632, 50001, 99999)
     name = sapply(epsg, proj.name)
     data.frame(name=name, epsg=epsg, row.names=seq_along(epsg))
 }
@@ -51,6 +51,7 @@ proj.name = function(epsg)
       '2391'='KKJ1',
       '2392'='KKJ2',
       '2393'='KKJ3',
+      '3006'='SWEREF99 TM',
       '3008'='SWEREF99 12 00',
       '3067'='ETRS-TM35',
       '3776'='NAD83 / Alberta 3TM ref merid 114 W',
@@ -101,12 +102,14 @@ proj.ogr.mapinfo = function(epsg)
 #' @method proj.proj4 not.an.s3.method
 #' @export proj.proj4
 proj.proj4 = function(epsg) {
+    # Find proj4 string from https://epsg.io/3006 > PROJ.4
     # To find out Proj4 strings compatible with MapInfo,
     # see x = read.mapinfo(...); summary(x).
     out = c('2056'='+proj=somerc +lat_0=46.952405555556 +lon_0=7.439583333333 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs',
             '2391'='+proj=tmerc +lat_0=0 +lon_0=21 +k=1 +x_0=1500000 +y_0=0 +ellps=intl +towgs84=-96.062,-82.428,-121.754,4.801,0.345,-1.376,1.496 +units=m +no_defs',
             '2392'='+proj=tmerc +lat_0=0 +lon_0=24 +k=1 +x_0=2500000 +y_0=0 +ellps=intl +towgs84=-96.062,-82.428,-121.754,4.801,0.345,-1.376,1.496 +units=m +no_defs',
             '2393'='+proj=tmerc +lat_0=0 +lon_0=27 +k=1 +x_0=3500000 +y_0=0 +ellps=intl +towgs84=-96.062,-82.428,-121.754,4.801,0.345,-1.376,1.496 +units=m +no_defs',
+            '3006'='+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
             '3008'='+proj=tmerc +lat_0=0 +lon_0=13.5 +k=1 +x_0=150000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
             '3067'='+proj=utm +zone=35 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
             '3776'='+proj=tmerc +lat_0=0 +lon_0=-114 +k=0.9999 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs',
@@ -137,12 +140,14 @@ proj.proj4 = function(epsg) {
 #' @method proj.shape not.an.s3.method
 #' @export proj.shape
 proj.shape = function(epsg)
+    # Find WKT code from https://epsg.io/3006 > ESRI WKT
     # To find out ESRI shape WKT-strings compatible with MapInfo,
     # convert from MapInfo to shape using Universal Translator.
     c('2056'='PROJCS["CH1903+_LV95",GEOGCS["GCS_CH1903+",DATUM["D_CH1903+",SPHEROID["Bessel_1841",6377397.155,299.1528128]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Hotine_Oblique_Mercator_Azimuth_Center"],PARAMETER["False_Easting",2600000.0],PARAMETER["False_Northing",1200000.0],PARAMETER["Scale_Factor",1.0],PARAMETER["Azimuth",90.0],PARAMETER["Longitude_Of_Center",7.439583333333333],PARAMETER["Latitude_Of_Center",46.95240555555556],UNIT["Meter",1.0],AUTHORITY["EPSG",2056]]',
       '2391'='PROJCS["Finland_Zone_1",GEOGCS["GCS_KKJ",DATUM["D_KKJ",SPHEROID["International_1924",6378388.0,297.0]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Gauss_Kruger"],PARAMETER["False_Easting",1500000.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",21.0],PARAMETER["Scale_Factor",1.0],PARAMETER["Latitude_Of_Origin",0.0],UNIT["Meter",1.0]]',
       '2392'='PROJCS["Finland_Zone_2",GEOGCS["GCS_KKJ",DATUM["D_KKJ",SPHEROID["International_1924",6378388.0,297.0]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Gauss_Kruger"],PARAMETER["False_Easting",2500000.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",24.0],PARAMETER["Scale_Factor",1.0],PARAMETER["Latitude_Of_Origin",0.0],UNIT["Meter",1.0]]',
       '2393'='PROJCS["Finland_Zone_3",GEOGCS["GCS_KKJ",DATUM["D_KKJ",SPHEROID["International_1924",6378388.0,297.0]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Gauss_Kruger"],PARAMETER["False_Easting",3500000.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",27.0],PARAMETER["Scale_Factor",1.0],PARAMETER["Latitude_Of_Origin",0.0],UNIT["Meter",1.0]]',
+      '3006'='PROJCS["SWEREF99_TM",GEOGCS["GCS_SWEREF99",DATUM["D_SWEREF99",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",15],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '3008'='PROJCS["SWEREF99 13 30",GEOGCS["SWEREF99",DATUM["D_SWEREF99",SPHEROID["GRS_1980",6378137,298.257222101]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",13.5],PARAMETER["scale_factor",1],PARAMETER["false_easting",150000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '3067'='PROJCS["Europe ETRS-TM35, ETRS89 datum; 24 deg East to 30 deg East",GEOGCS["ETRS89",DATUM["D_ETRS89",SPHEROID["World_Geodetic_System_of_1984_GEM_10C",6378137,298.257223563]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",27],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["Meter",1]]',
       '3776'='PROJCS["3TM114-83",GEOGCS["North_American_Datum_1983",DATUM["D_North_American_1983",SPHEROID["Geodetic Reference System of 1980",6378137.0,298.2572221009113]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Transverse_Mercator"],PARAMETER["false_easting",0.0],PARAMETER["false_northing",0.0],PARAMETER["central_meridian",-114.0],PARAMETER["scale_factor",0.9999],PARAMETER["latitude_of_origin",0.0],UNIT["Meter",1.0]]',
