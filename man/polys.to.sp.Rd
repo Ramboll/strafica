@@ -4,12 +4,14 @@
 \alias{polys.to.sp}
 \title{Convert a polygon data frame to its \pkg{sp} equivalent.}
 \usage{
-polys.to.sp(outlines, data = NULL)
+polys.to.sp(outlines, data = NULL, verbose = TRUE)
 }
 \arguments{
 \item{outlines}{a data frame of polygon outlines.}
 
 \item{data}{a data frame of per-entry attributes.}
+
+\item{verbose}{a logical indicating whether or not to print out progress.}
 }
 \value{
 A \code{SpatialPolygonsDataFrame} object.

@@ -32,14 +32,15 @@ read.shape = function(fname, stringsAsFactors=FALSE, encoding="Latin1", ...) {
 #' @param shapes a \code{Spatial*DataFrame} object.
 #' @param fname name of shapefile to write.
 #' @param epsg projection code, see \code{\link{list.projections}}.
+#' @param verbose a logical indicating whether or not to print out progress updates.
 #' @export write.shape
-write.shape = function(shapes, fname, epsg) {
-    message("Writing shapefile... Please consider geopackage instead using `write.gpkg()`.")
+write.shape = function(shapes, fname, epsg, verbose=TRUE) {
     if (is.na(proj.shape(epsg)))
         stop(sprintf("EPSG %s not supported", epsg))
     # Latin 1 is the original standard DBF encoding.
     shapes@data = recode(shapes@data, NULL, "Latin1")
-    messagef("Writing '%s'...", fname)
+    if (verbose)
+        messagef("Writing '%s'...", fname)
     # Due to writeOGR failing to overwrite files,
     # write to tempdir and copy on from there.
     tempname = tempfile(fileext=".shp")
