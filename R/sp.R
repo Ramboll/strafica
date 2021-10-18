@@ -61,15 +61,13 @@ lines.to.sp = function(lines, data=NULL, verbose=TRUE) {
         messagef("Creating %d lines...", total)
     indices = uind(lines$eid)
     shapes = mclapply.stop(seq_along(indices), function(i) {
-        if (verbose & progress.due(3, parallel = TRUE)) {
-              progress.eta(time.start, i, length(indices))
-        }
+        if (verbose & progress.due(3, parallel=TRUE))
+            progress.eta(time.start, i, length(indices))
         ii = indices[[i]]
         id = as.character(lines$eid[ii][1])
         if (length(unique(lines$id[ii])) == 1)
               return(sp::Lines(list(sp::Line(
-                  cbind(lines$x[ii], lines$y[ii])
-              )), id))
+                  cbind(lines$x[ii], lines$y[ii]))), id))
         return(sp::Lines(lapply(uind(lines$id[ii]), function(jj) {
             sp::Line(cbind(lines$x[ii[jj]], lines$y[ii[jj]]))
         }), id))
@@ -138,7 +136,7 @@ polys.to.sp = function(outlines, data=NULL, verbose=TRUE) {
         progress.final(time.start)
     shapes = sp::SpatialPolygons(shapes, seq_along(shapes))
     if (is.null(data))
-        data = data.frame(eid = unique(outlines$eid))
+        data = data.frame(eid=unique(outlines$eid))
     rownames(data) = as.character(data$eid)
     return(sp::SpatialPolygonsDataFrame(shapes, data))
 }
@@ -261,9 +259,7 @@ sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE, ver
             # Discard all polygons below area.min.
             keep = slots(Polygons, "area") >= area.min
             Polygons = subset(Polygons, keep)
-            if (length(Polygons) == 0) {
-                return(NULL)
-            }
+            if (length(Polygons) == 0) return(NULL)
         }
         return(bind5(lapply(seq_along(Polygons), function(sid) {
             coords = rbind(Polygons[[sid]]@coords, NA)
