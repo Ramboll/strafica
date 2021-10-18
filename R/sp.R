@@ -66,8 +66,8 @@ lines.to.sp = function(lines, data=NULL, verbose=TRUE) {
         ii = indices[[i]]
         id = as.character(lines$eid[ii][1])
         if (length(unique(lines$id[ii])) == 1)
-              return(sp::Lines(list(sp::Line(
-                  cbind(lines$x[ii], lines$y[ii]))), id))
+            return(sp::Lines(list(sp::Line(
+                cbind(lines$x[ii], lines$y[ii]))), id))
         return(sp::Lines(lapply(uind(lines$id[ii]), function(jj) {
             sp::Line(cbind(lines$x[ii[jj]], lines$y[ii[jj]]))
         }), id))
