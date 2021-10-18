@@ -9,7 +9,6 @@ remove_all_shape_file_parts = function(main_shapefile) {
     )
     for (shapefile_part in shapefile_parts) {
         if (file.exists(shapefile_part)) {
-            # Delete file if it exists
             file.remove(shapefile_part)
         }
     }
