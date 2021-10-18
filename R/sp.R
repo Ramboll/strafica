@@ -280,5 +280,5 @@ sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE, ver
     polys$x = fun(polys$x)
     polys$y = fun(polys$y)
     polys = downclass(polys)
-    return(list(data = data, outlines = polys))
+    return(list(data=data, outlines=polys))
 }
