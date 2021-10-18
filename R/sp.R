@@ -254,7 +254,7 @@ sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE, ver
     if (verbose)
         messagef("Creating %d polygons...", n)
     polys = bind5(mclapply.stop(seq_along(shapes@polygons), function(i) {
-        if (verbose & progress.due(3, parallel = TRUE))
+        if (verbose & progress.due(3, parallel=TRUE))
             progress.eta(time.start, i, length(shapes@polygons))
         Polygons = shapes@polygons[[i]]@Polygons
         if (is.numeric(area.min) && area.min > 0) {

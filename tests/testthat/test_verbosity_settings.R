@@ -1,13 +1,13 @@
 # -*- coding: us-ascii-unix -*-
 remove_all_shape_file_parts = function(main_shapefile) {
     extensions = c(".dbf", ".prj", ".shp", ".shx")
-    distnct_shapefile_parts = sapply(
+    shapefile_parts = sapply(
         extensions,
         function(extension) {
             gsub("\\.shp$", extension, main_shapefile)
         }
     )
-    for (shapefile_part in distnct_shapefile_parts) {
+    for (shapefile_part in shapefile_parts) {
         if (file.exists(shapefile_part)) {
             # Delete file if it exists
             file.remove(shapefile_part)
@@ -33,7 +33,7 @@ test_that("with verbosity unset, there will be messages when writing out a shape
     remove_all_shape_file_parts(dummy_file_name_shp)
 })
 
-test_that("with verbosity=FALSE, there will be no messages when writing out a shapefile", {
+test_that("with verbose=FALSE, there will be no messages when writing out a shapefile", {
     dummy_epsg_code = 3067
     spatial_data_frame_lines = strafica::read.shape(
         "../data/one_line.shp",
@@ -53,7 +53,7 @@ test_that("with verbosity=FALSE, there will be no messages when writing out a sh
 })
 
 
-test_that("verbosity=FALSE option can suppress messages with sp.to.lines", {
+test_that("verbose=FALSE option can suppress messages with sp.to.lines", {
     spatial_data_frame_lines = strafica::read.shape(
         "../data/one_line.shp",
         verbose = FALSE,
@@ -68,7 +68,7 @@ test_that("verbosity=FALSE option can suppress messages with sp.to.lines", {
     )
 })
 
-test_that("verbosity=FALSE option can suppress messages with lines.to.sp", {
+test_that("verbose=FALSE option can suppress messages with lines.to.sp", {
     spatial_data_frame_lines = strafica::read.shape(
         "../data/one_line.shp",
         verbose = FALSE
@@ -91,7 +91,7 @@ test_that("verbosity=FALSE option can suppress messages with lines.to.sp", {
     )
 })
 
-test_that("verbosity=FALSE option can suppress output with sp.to.polys", {
+test_that("verbose=FALSE option can suppress output with sp.to.polys", {
     spatial_data_frame_polys = strafica::read.gpkg(
         "../data/two_polygons.gpkg",
         verbose = FALSE,
@@ -106,7 +106,7 @@ test_that("verbosity=FALSE option can suppress output with sp.to.polys", {
     )
 })
 
-test_that("verbosity=FALSE option can suppress output with polys.to.sp", {
+test_that("verbose=FALSE option can suppress output with polys.to.sp", {
     spatial_data_frame_polys = strafica::read.gpkg(
         "../data/two_polygons.gpkg",
         verbose = FALSE,
