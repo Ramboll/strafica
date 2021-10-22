@@ -4,7 +4,13 @@
 \alias{sp.to.polys}
 \title{Convert \pkg{sp} polygons to its data frame equivalent.}
 \usage{
-sp.to.polys(shapes, fun = identity, area.min = NULL, data.only = FALSE)
+sp.to.polys(
+  shapes,
+  fun = identity,
+  area.min = NULL,
+  data.only = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{shapes}{a \code{SpatialPolygonsDataFrame} object.}
@@ -14,6 +20,8 @@ sp.to.polys(shapes, fun = identity, area.min = NULL, data.only = FALSE)
 \item{area.min}{threshold, polygons below which to discard.}
 
 \item{data.only}{if \code{TRUE}, don't parse geometry, return only data.}
+
+\item{verbose}{a logical indicating whether or not to print out progress.}
 }
 \value{
 A list with two data frames: data and outlines.

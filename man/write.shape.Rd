@@ -4,7 +4,7 @@
 \alias{write.shape}
 \title{Write points, lines or polygons to a shapefile.}
 \usage{
-write.shape(shapes, fname, epsg)
+write.shape(shapes, fname, epsg, verbose = TRUE)
 }
 \arguments{
 \item{shapes}{a \code{Spatial*DataFrame} object.}
@@ -12,6 +12,8 @@ write.shape(shapes, fname, epsg)
 \item{fname}{name of shapefile to write.}
 
 \item{epsg}{projection code, see \code{\link{list.projections}}.}
+
+\item{verbose}{a logical indicating whether or not to print out progress updates.}
 }
 \description{
 Write points, lines or polygons to a shapefile.

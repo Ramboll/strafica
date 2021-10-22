@@ -39,11 +39,12 @@ grid.to.sp = function(grid, cell.size) {
 #' Convert a line data frame to its \pkg{sp} equivalent.
 #' @param lines a data frame of lines.
 #' @param data a data frame of per-entry attributes.
+#' @param verbose a logical indicating whether or not to print out progress.
 #' @return A \code{SpatialLinesDataFrame} object.
 #' @seealso \code{\link[sp]{SpatialLinesDataFrame}}
 #' @method lines.to.sp not.an.s3.method
 #' @export lines.to.sp
-lines.to.sp = function(lines, data=NULL) {
+lines.to.sp = function(lines, data=NULL, verbose=TRUE) {
     lines = subset(lines, !is.na(x) & !is.na(y))
     if ("sid" %nin% colnames(lines))
         lines$sid = 1L
@@ -56,10 +57,11 @@ lines.to.sp = function(lines, data=NULL) {
         stop("No valid lines given")
     total = length(unique(lines$id))
     time.start = Sys.time()
-    messagef("Creating %d lines...", total)
+    if (verbose)
+        messagef("Creating %d lines...", total)
     indices = uind(lines$eid)
     shapes = mclapply.stop(seq_along(indices), function(i) {
-        if (progress.due(3, parallel=TRUE))
+        if (verbose & progress.due(3, parallel=TRUE))
             progress.eta(time.start, i, length(indices))
         ii = indices[[i]]
         id = as.character(lines$eid[ii][1])
@@ -70,7 +72,8 @@ lines.to.sp = function(lines, data=NULL) {
             sp::Line(cbind(lines$x[ii[jj]], lines$y[ii[jj]]))
         }), id))
     })
-    progress.final(time.start)
+    if (verbose)
+          progress.final(time.start)
     shapes = sp::SpatialLines(shapes)
     if (is.null(data))
         data = data.frame(eid=unique(lines$eid))
@@ -96,10 +99,11 @@ points.to.sp = function(points) {
 #' Convert a polygon data frame to its \pkg{sp} equivalent.
 #' @param outlines a data frame of polygon outlines.
 #' @param data a data frame of per-entry attributes.
+#' @param verbose a logical indicating whether or not to print out progress.
 #' @return A \code{SpatialPolygonsDataFrame} object.
 #' @seealso \code{\link[sp]{SpatialPolygonsDataFrame}}
 #' @export polys.to.sp
-polys.to.sp = function(outlines, data=NULL) {
+polys.to.sp = function(outlines, data=NULL, verbose=TRUE) {
     outlines = subset(outlines, !is.na(x) & !is.na(y))
     if ("sid" %nin% colnames(outlines))
         outlines$sid = 1L
@@ -112,21 +116,24 @@ polys.to.sp = function(outlines, data=NULL) {
         stop("No valid polygons given")
     total = length(unique(outlines$id))
     time.start = Sys.time()
-    messagef("Creating %d polygons...", total)
+    if (verbose)
+        messagef("Creating %d polygons...", total)
     indices = uind(outlines$eid)
     shapes = mclapply.stop(seq_along(indices), function(i) {
-        if (progress.due(3, parallel=TRUE))
+        if (verbose & progress.due(3, parallel=TRUE))
             progress.eta(time.start, i, length(indices))
         ii = indices[[i]]
         id = as.character(outlines$eid[ii][1])
         if (length(unique(outlines$id[ii])) == 1)
             return(sp::Polygons(list(sp::Polygon(cbind(
-                outlines$x[ii],outlines$y[ii]))), id))
+                outlines$x[ii], outlines$y[ii]
+            ))), id))
         return(sp::Polygons(lapply(uind(outlines$id[ii]), function(jj) {
             sp::Polygon(cbind(outlines$x[ii[jj]], outlines$y[ii[jj]]))
         }), id))
     })
-    progress.final(time.start)
+    if (verbose)
+        progress.final(time.start)
     shapes = sp::SpatialPolygons(shapes, seq_along(shapes))
     if (is.null(data))
         data = data.frame(eid=unique(outlines$eid))
@@ -150,9 +157,10 @@ segments.to.sp = function(segments) {
 #' @param shapes a \code{SpatialLinesDataFrame} object.
 #' @param fun a function to apply to coordinates, e.g. \code{\link{round}}.
 #' @param data.only if \code{TRUE}, don't parse geometry, return only data.
+#' @param verbose a logical indicating whether or not to print out progress.
 #' @return A list with two data frames: data and lines.
 #' @export sp.to.lines
-sp.to.lines = function(shapes, fun=identity, data.only=FALSE) {
+sp.to.lines = function(shapes, fun=identity, data.only=FALSE, verbose=TRUE) {
     bind4 = function(x)
         cbind(unlist(lapply(x, "[", TRUE, 1)),
               unlist(lapply(x, "[", TRUE, 2)),
@@ -168,9 +176,10 @@ sp.to.lines = function(shapes, fun=identity, data.only=FALSE) {
     if (data.only) return(data)
     n = sum(sapply(shapes@lines, function(x) length(x@Lines)))
     time.start = Sys.time()
-    messagef("Creating %d lines...", n)
+    if (verbose)
+        messagef("Creating %d lines...", n)
     lines = bind4(mclapply.stop(seq_along(shapes@lines), function(i) {
-        if (progress.due(3, parallel=TRUE))
+        if (verbose & progress.due(3, parallel=TRUE))
             progress.eta(time.start, i, length(shapes@lines))
         Lines = shapes@lines[[i]]@Lines
         return(bind4(lapply(seq_along(Lines), function(sid) {
@@ -179,7 +188,8 @@ sp.to.lines = function(shapes, fun=identity, data.only=FALSE) {
         })))
     }))
     post.gc(rm(shapes))
-    progress.final(time.start)
+    if (verbose)
+        progress.final(time.start)
     lines = as.data.frame(lines)
     colnames(lines) = c("eid", "sid", "x", "y")
     lines$x = fun(lines$x)
@@ -214,9 +224,10 @@ sp.to.points = function(shapes, fun=identity) {
 #' @param fun a function to apply to coordinates, e.g. \code{\link{round}}.
 #' @param area.min threshold, polygons below which to discard.
 #' @param data.only if \code{TRUE}, don't parse geometry, return only data.
+#' @param verbose a logical indicating whether or not to print out progress.
 #' @return A list with two data frames: data and outlines.
 #' @export sp.to.polys
-sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE) {
+sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE, verbose=TRUE) {
     bind5 = function(x)
         cbind(unlist(lapply(x, "[", TRUE, 1)),
               unlist(lapply(x, "[", TRUE, 2)),
@@ -238,9 +249,10 @@ sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE) {
     if (data.only) return(data)
     n = sum(sapply(shapes@polygons, function(x) length(x@Polygons)))
     time.start = Sys.time()
-    messagef("Creating %d polygons...", n)
+    if (verbose)
+        messagef("Creating %d polygons...", n)
     polys = bind5(mclapply.stop(seq_along(shapes@polygons), function(i) {
-        if (progress.due(3, parallel=TRUE))
+        if (verbose & progress.due(3, parallel=TRUE))
             progress.eta(time.start, i, length(shapes@polygons))
         Polygons = shapes@polygons[[i]]@Polygons
         if (is.numeric(area.min) && area.min > 0) {
@@ -255,7 +267,9 @@ sp.to.polys = function(shapes, fun=identity, area.min=NULL, data.only=FALSE) {
         })))
     }))
     post.gc(rm(shapes))
-    progress.final(time.start)
+    if (verbose) {
+        progress.final(time.start)
+    }
     polys = as.data.frame(polys)
     colnames(polys) = c("eid", "sid", "x", "y", "hole")
     polys$hole = as.logical(polys$hole)

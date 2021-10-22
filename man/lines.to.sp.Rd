@@ -4,12 +4,14 @@
 \alias{lines.to.sp}
 \title{Convert a line data frame to its \pkg{sp} equivalent.}
 \usage{
-\method{lines.to.sp}{not.an.s3.method}(lines, data = NULL)
+\method{lines.to.sp}{not.an.s3.method}(lines, data = NULL, verbose = TRUE)
 }
 \arguments{
 \item{lines}{a data frame of lines.}
 
 \item{data}{a data frame of per-entry attributes.}
+
+\item{verbose}{a logical indicating whether or not to print out progress.}
 }
 \value{
 A \code{SpatialLinesDataFrame} object.
