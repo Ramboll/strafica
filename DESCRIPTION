@@ -22,7 +22,7 @@ BugReports: https://github.com/ramboll/strafica/issues
 License: MIT + file LICENSE
 ByteCompile: true
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Depends:
     R (>= 2.14)
 Imports:
