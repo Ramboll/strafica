@@ -110,6 +110,21 @@ flip.opposing.segments = function(segments) {
     return(downclass(segments))
 }
 
+#' Flip direction of segments.
+#'
+#' @param segments a data frame of segments.
+#'
+#' @return a data frame of segments, with endpoints flipped.
+#' @export flip_segments
+flip_segments = function(segments) {
+    coords = c("ix", "iy", "jx", "jy")
+    if (any(coords %nin% names(segments))) {
+        stop("Object is not a segment!")
+    }
+    segments = transform(segments, ix = jx, iy = jy, jx = ix, jy = iy)
+    return(segments)
+}
+
 #' Intersection points of two lines.
 #' @param ix1 X-coordinate of first point along line 1.
 #' @param iy1 Y-coordinate of first point along line 1.
