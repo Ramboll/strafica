@@ -4,10 +4,12 @@
 \alias{lines.to.segments}
 \title{Convert lines to segments.}
 \usage{
-\method{lines.to.segments}{not.an.s3.method}(lines)
+\method{lines.to.segments}{not.an.s3.method}(lines, data = NULL)
 }
 \arguments{
 \item{lines}{a data frame of lines.}
+
+\item{data}{a data frame of per-entry attributes.}
 }
 \value{
 A data frame of segments.
