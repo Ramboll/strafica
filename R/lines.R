@@ -149,10 +149,11 @@ lineint = function(ix1, iy1, jx1, jy1, ix2, iy2, jx2, jy2) {
 
 #' Convert lines to segments.
 #' @param lines a data frame of lines.
+#' @param data a data frame of per-entry attributes.
 #' @return A data frame of segments.
 #' @method lines.to.segments not.an.s3.method
 #' @export lines.to.segments
-lines.to.segments = function(lines) {
+lines.to.segments = function(lines, data = NULL) {
     lines = subset(lines, !is.na(x) & !is.na(y))
     id = classify(lines$eid, lines$sid)
     first = !duplicated(id, fromLast=FALSE)
@@ -167,6 +168,9 @@ lines.to.segments = function(lines) {
     skip = c(colnames(segments), "x", "y")
     for (name in setdiff(colnames(lines), skip))
         segments[,name] = lines[!last, name]
+    if (!is.null(data)) {
+        segments = leftjoin(segments, data, by = "eid")
+    }
     return(segments)
 }
 
