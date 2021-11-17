@@ -12,9 +12,6 @@ variables:
   MAKEFLAGS: "-j 2"
 
 steps:
-# - bash: sudo apt update && sudo apt install -y default-jdk gdal-bin libgdal-dev libproj-dev libxml2-dev libudunits2-dev
-#   displayName: Install GDAL
-
 - bash: R -q -e 'writeLines(".libPaths(\"~/R-private\")", ".Rprofile"); dir.create("~/R-private", recursive = TRUE); print(Sys.getenv());'
   displayName: "R Preliminaries"
 
@@ -23,7 +20,3 @@ steps:
 
 - bash: R -q -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
   displayName: 'Check Package'
-
-- bash: R -q -e 'cov <- covr::package_coverage(); covr::to_cobertura(cov, "coverage.xml")'
-  displayName: 'Run Code Coverage'
-  condition: succeededOrFailed()
