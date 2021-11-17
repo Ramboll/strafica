@@ -1,0 +1,26 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-16.04'
+
+container:
+  image: 'rocker/tidyverse:latest'
+
+variables:
+  _R_CHECK_FORCE_SUGGESTS_: false
+  MAKEFLAGS: "-j 2"
+
+steps:
+- bash: R -q -e 'writeLines(".libPaths(\"~/R-private\")", ".Rprofile"); dir.create("~/R-private", recursive = TRUE); print(Sys.getenv());'
+  displayName: "Preliminaries"
+
+- bash: R -q -e 'install.packages(c("covr", "roxygen2", "testthat", "remotes", "rcmdcheck")); remotes::install_deps(dependencies = TRUE);'
+  displayName: 'Install Dependencies'
+
+- bash: R -q -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning', check_dir = 'check')"
+  displayName: 'Check Package'
+
+- bash: R -q -e 'cov <- covr::package_coverage(); covr::to_cobertura(cov, "coverage.xml")'
+  displayName: 'Run Code Coverage'
+  condition: succeededOrFailed()
