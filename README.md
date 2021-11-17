@@ -1,6 +1,8 @@
 strafica
 ========
 
+[![Build Status](https://dev.azure.com/rfidevops/DML/_apis/build/status/Ramboll.strafica?branchName=refs%2Fpull%2F26%2Fmerge)](https://dev.azure.com/rfidevops/DML/_build/latest?definitionId=89&branchName=refs%2Fpull%2F26%2Fmerge)
+
 strafica is a custom base package for R that provides a miscellaneous
 collection of functions intended for regular use and for specialized
 packages to depend on.
