@@ -1,0 +1,22 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-20.04'
+
+container:
+  image: 'rocker/geospatial:4.1.2'
+
+variables:
+  _R_CHECK_FORCE_SUGGESTS_: false
+  MAKEFLAGS: "-j 2"
+
+steps:
+- bash: R -q -e 'writeLines(".libPaths(\"~/R-private\")", ".Rprofile"); dir.create("~/R-private", recursive = TRUE); print(Sys.getenv());'
+  displayName: "R Preliminaries"
+
+- bash: R -q -e 'install.packages(c("covr", "roxygen2", "testthat", "remotes", "rcmdcheck")); remotes::install_deps(dependencies = TRUE);'
+  displayName: 'Install Dependencies'
+
+- bash: R -q -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'error', check_dir = 'check')"
+  displayName: 'Check Package'
