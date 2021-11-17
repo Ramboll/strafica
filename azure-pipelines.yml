@@ -12,7 +12,7 @@ variables:
   MAKEFLAGS: "-j 2"
 
 steps:
-- bash: sudo apt install -y default-jdk gdal-bin libgdal-dev libproj-dev libxml2-dev
+- bash: sudo apt update && sudo apt install -y default-jdk gdal-bin libgdal-dev libproj-dev libxml2-dev
   displayName: Install GDAL
 
 - bash: R -q -e 'writeLines(".libPaths(\"~/R-private\")", ".Rprofile"); dir.create("~/R-private", recursive = TRUE); print(Sys.getenv());'
