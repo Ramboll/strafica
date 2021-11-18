@@ -5,3 +5,4 @@
 ^install\.R$
 ^prompt\.bat$
 ^source\.R$
+azure-pipelines.yml
