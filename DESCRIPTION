@@ -1,7 +1,7 @@
 Package: strafica
 Type: Package
 Title: strafica
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: c(person("Martijn", "Hollestelle", email="martijn.hollestelle@ramboll.fi",
                     role=c("cre", "ctb")),
              person("Roni", "Ilmola", email="roni.ilmola@ramboll.fi",

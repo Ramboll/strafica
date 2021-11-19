@@ -122,7 +122,7 @@ hscale_segment = function(breaks, dy=1/50, ...) {
     return(ggplot2::geom_segment(data=df,
                                  aes(x=ix, xend=jx, y=iy, yend=jy),
                                  ...))
-    
+
 }
 
 #' Horizontal scalebar text for \pkg{ggplot2}.
@@ -140,7 +140,7 @@ hscale_text = function(breaks, dy=2/50, ...) {
                               hjust=0.5,
                               vjust=0,
                               ...))
-    
+
 }
 
 #' Build numeric range labels for a plot legend.
@@ -177,8 +177,10 @@ range.labels = function(a, b, sep="-") {
 #' @param ... passed to \code{\link[ggplot2]{ggsave}}.
 #' @export save.plot
 save.plot = function(plot, fname, ...) {
-    if (grepl("\\.pdf$", fname))
+    message("This function is deprecated, please use ggplot2::ggsave()")
+    if (grepl("\\.pdf$", fname)) {
         return(save.plot.pdf(plot, fname, ...))
+    }
     return(ggplot2::ggsave(fname, plot, ...))
 }
 
@@ -189,12 +191,11 @@ save.plot = function(plot, fname, ...) {
 #' @param device device to use.
 #' @param ... passed to \code{\link[ggplot2]{ggsave}}.
 #' @export save.plot.pdf
-save.plot.pdf = function(plot, fname, family=getOption("fontfamily"),
+save.plot.pdf = function(plot, fname,
                          device=grDevices::cairo_pdf, ...)
-
     # Default to using 'cairo_pdf', which embeds fonts and handles
     # non-ASCII character and rasters much better than 'pdf'.
-    return(ggplot2::ggsave(fname, plot, device=device, family=family, ...))
+    return(ggplot2::ggsave(fname, plot, device=device, ...))
 
 #' Construct scaled polygons from segments.
 #'
