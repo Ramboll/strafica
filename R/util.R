@@ -783,7 +783,7 @@ strwrap.str = function(x, width, ...)
     sapply(x, function(y) do.call(
         paste, c(as.list(strwrap(y, width, ...)), sep="\n")))
 
-#' Subset data frame.
+#' Faster method for subsetting a data frame.
 #' @param x data frame to be subsetted.
 #' @param subset logical expression indicating rows to keep:
 #' missing values are taken as false.
@@ -791,9 +791,9 @@ strwrap.str = function(x, width, ...)
 #' @param drop passed on to \code{[} indexing operator.
 #' @param ... not used.
 #' @return A data frame.
-#' @method subset data.frame
-#' @export subset.data.frame
-subset.data.frame = function(x, subset, select, drop=FALSE, ...) {
+#' @method fast_subset data.frame
+#' @export fast_subset.data.frame
+fast_subset.data.frame = function(x, subset, select, drop=FALSE, ...) {
     # Faster version of subset.data.frame using integer indices.
     # Not wanted upstream. Only the trivial subset part implemented,
     # if the complicated select argument given, defer to base.
