@@ -2,7 +2,7 @@
 % Please edit documentation in R/mapinfo.R
 \name{read.mapinfo}
 \alias{read.mapinfo}
-\title{Read points, lines or polygons from a MapInfo TAB file.}
+\title{This function has been removed from the package. Use `sf::st_read()` instead.}
 \usage{
 read.mapinfo(fname, stringsAsFactors = FALSE, encoding = "CP1252", ...)
 }
@@ -19,5 +19,5 @@ read.mapinfo(fname, stringsAsFactors = FALSE, encoding = "CP1252", ...)
 A \code{Spatial*DataFrame} object.
 }
 \description{
-Read points, lines or polygons from a MapInfo TAB file.
+This function has been removed from the package. Use `sf::st_read()` instead.
 }

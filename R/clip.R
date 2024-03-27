@@ -49,32 +49,10 @@ clip.lines.list = function(lines, ...) {
 #' @method clip.lines SpatialLinesDataFrame
 #' @export
 clip.lines.SpatialLinesDataFrame = function(lines, ...) {
-    dots = list(...)
-    if (length(dots) == 1 && is.data.frame(dots[[1]])) {
-        # Polygon outline data frame.
-        to = polys.to.sp(dots[[1]])
-    } else if (length(dots) == 1 && methods::is(dots[[1]], "SpatialPolygonsDataFrame")) {
-        # SpatialPolygonsDataFrame object.
-        to = dots[[1]]
-    } else if (length(dots) == 4) {
-        # Bounding box coordinates (for legacy compatibility).
-        names(dots) = c("xmin", "xmax", "ymin", "ymax")
-        to = bbox.to.sp(dots)
-    } else {
-        stop("Bad arguments for bounds")
-    }
-    to = rgeos::gUnaryUnion(to)
-    message("Clipping lines to bounding polygon...")
-    data = as.data.frame(lines)
-    sp::proj4string(lines) = sp::proj4string(to) = ""
-    lines = rgeos::gIntersection(lines, to, byid=TRUE,  drop_lower_td=TRUE)
-    # gIntersection returns combined IDs, of which we want the first,
-    # which allows us to merge the data back that gIntersection lost.
-    id = gsub(" .*$", "", slots(lines@lines, "ID"))
-    for (i in seq_along(lines@lines))
-        lines@lines[[i]]@ID = id[i]
-    data = data[which(rownames(data) %in% id),,drop=FALSE]
-    return(sp::SpatialLinesDataFrame(lines, data))
+    stop(
+        "The function 'clip.lines' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
 
 #' Clip polygons to a bounding polygon.
@@ -128,43 +106,10 @@ clip.polys.list = function(polys, ...) {
 #' @method clip.polys SpatialPolygonsDataFrame
 #' @export
 clip.polys.SpatialPolygonsDataFrame = function(polys, ...) {
-    dots = list(...)
-    if (length(dots) == 1 && is.data.frame(dots[[1]])) {
-        # Polygon outline data frame.
-        to = polys.to.sp(dots[[1]])
-    } else if (length(dots) == 1 && methods::is(dots[[1]], "SpatialPolygonsDataFrame")) {
-        # SpatialPolygonsDataFrame object.
-        to = dots[[1]]
-    } else if (length(dots) == 4) {
-        # Bounding box coordinates (for legacy compatibility).
-        # Work around various polygon topology etc. related errors
-        # by using a simple pure R implementation.
-        polys = sp.to.polys(polys)
-        polys$outlines = squeeze.polys(polys$outlines, ...)
-        polys$data = subset(polys$data, eid %in% polys$outlines$eid)
-        return(polys.to.sp(polys$outlines, polys$data))
-    } else {
-        stop("Bad arguments for bounds")
-    }
-    to = rgeos::gUnaryUnion(to)
-    message("Clipping polygons to bounding polygon...")
-    data = as.data.frame(polys)
-    polys = rgeos::createSPComment(polys)
-    # rgeos is very strict about polygons having correct topology;
-    # try to fix possible topology errors by buffering.
-    polys = rgeos::gBuffer(polys, width=0, byid=TRUE)
-    sp::proj4string(polys) = sp::proj4string(to) = ""
-    # XXX: drop_lower_td=TRUE drops *everything* (rgeos 0.3-8).
-    polys = rgeos::gIntersection(polys, to, byid=TRUE, drop_lower_td=FALSE)
-    if (methods::is(polys, "SpatialCollections"))
-        polys = polys@polyobj
-    # gIntersection returns combined IDs, of which we want the first,
-    # which allows us to merge the data back that gIntersection lost.
-    id = gsub(" .*$", "", slots(polys@polygons, "ID"))
-    for (i in seq_along(polys@polygons))
-        polys@polygons[[i]]@ID = id[i]
-    data = data[which(rownames(data) %in% id),,drop=FALSE]
-    return(sp::SpatialPolygonsDataFrame(polys, data))
+        stop(
+        "The function 'clip.polys' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
 
 #' Clip segments to a bounding polygon.

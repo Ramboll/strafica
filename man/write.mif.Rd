@@ -2,7 +2,8 @@
 % Please edit documentation in R/mapinfo.R
 \name{write.mif}
 \alias{write.mif}
-\title{Write points, lines or polygons to a MapInfo MIF file.}
+\title{This function has been removed from the package. Use `sf::st_write()`
+instead.}
 \usage{
 write.mif(shapes, fname, epsg)
 }
@@ -14,5 +15,6 @@ write.mif(shapes, fname, epsg)
 \item{epsg}{projection code, see \code{\link{list.projections}}.}
 }
 \description{
-Write points, lines or polygons to a MapInfo MIF file.
+This function has been removed from the package. Use `sf::st_write()`
+instead.
 }

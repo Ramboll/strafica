@@ -2,7 +2,7 @@
 % Please edit documentation in R/gpkg.R
 \name{read.gpkg}
 \alias{read.gpkg}
-\title{Read points, lines or polygons from a GeoPackage file}
+\title{This function has been removed from the package. Use `sf::st_read()` instead.}
 \usage{
 read.gpkg(fname, stringsAsFactors = FALSE, encoding = "UTF-8", ...)
 }
@@ -19,5 +19,5 @@ read.gpkg(fname, stringsAsFactors = FALSE, encoding = "UTF-8", ...)
 A \code{Spatial*DataFrame} object.
 }
 \description{
-Read points, lines or polygons from a GeoPackage file
+This function has been removed from the package. Use `sf::st_read()` instead.
 }

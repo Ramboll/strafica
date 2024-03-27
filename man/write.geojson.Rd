@@ -2,7 +2,8 @@
 % Please edit documentation in R/geojson.R
 \name{write.geojson}
 \alias{write.geojson}
-\title{Write points, lines or polygons to a GeoJSON file.}
+\title{This function has been removed from the package. Use `sf::st_write()`
+instead.}
 \usage{
 write.geojson(shapes, fname, epsg)
 }
@@ -16,5 +17,6 @@ write.geojson(shapes, fname, epsg)
 automatically reprojected to it if needed.}
 }
 \description{
-Write points, lines or polygons to a GeoJSON file.
+This function has been removed from the package. Use `sf::st_write()`
+instead.
 }
