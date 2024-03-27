@@ -2,7 +2,8 @@
 % Please edit documentation in R/mapinfo.R
 \name{write.mapinfo}
 \alias{write.mapinfo}
-\title{Write points, lines or polygons to a MapInfo TAB file.}
+\title{This function has been removed from the package. Use `sf::st_write()`
+instead.}
 \usage{
 write.mapinfo(shapes, fname, epsg)
 }

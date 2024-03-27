@@ -2,7 +2,7 @@
 % Please edit documentation in R/geojson.R
 \name{read.geojson}
 \alias{read.geojson}
-\title{Read points, lines or polygons from a GeoJSON file.}
+\title{This function has been removed from the package. Use `sf::st_read()` instead.}
 \usage{
 read.geojson(fname, stringsAsFactors = FALSE, encoding = "UTF-8", ...)
 }
@@ -19,5 +19,5 @@ read.geojson(fname, stringsAsFactors = FALSE, encoding = "UTF-8", ...)
 A \code{Spatial*DataFrame} object.
 }
 \description{
-Read points, lines or polygons from a GeoJSON file.
+This function has been removed from the package. Use `sf::st_read()` instead.
 }

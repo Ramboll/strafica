@@ -2,7 +2,8 @@
 % Please edit documentation in R/shape.R
 \name{write.shape}
 \alias{write.shape}
-\title{Write points, lines or polygons to a shapefile.}
+\title{This function has been removed from the package. Use `sf::st_write()`
+instead.}
 \usage{
 write.shape(shapes, fname, epsg, verbose = TRUE)
 }
@@ -16,5 +17,6 @@ write.shape(shapes, fname, epsg, verbose = TRUE)
 \item{verbose}{a logical indicating whether or not to print out progress updates.}
 }
 \description{
-Write points, lines or polygons to a shapefile.
+This function has been removed from the package. Use `sf::st_write()`
+instead.
 }

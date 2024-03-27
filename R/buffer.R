@@ -39,14 +39,10 @@ buffer.lines.list = function(lines, width, byid, quadsegs=10, ...) {
 #' @method buffer.lines SpatialLinesDataFrame
 #' @export
 buffer.lines.SpatialLinesDataFrame = function(lines, width, byid, quadsegs=10, ...) {
-    buffer = rgeos::gBuffer(lines, width=width, byid=byid, quadsegs=quadsegs, ...)
-    if (!methods::is(buffer, "SpatialPolygonsDataFrame")) {
-        # Data will be lacking if byid is FALSE.
-        data = data.frame(eid=seq_len(length(buffer@polygons)))
-        rownames(data) =  unlist(lapply(buffer@polygons, function(x) x@ID))
-        buffer = sp::SpatialPolygonsDataFrame(buffer, data)
-    }
-    return(buffer)
+    stop(
+        "The function 'buffer.lines' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
 
 #' Create polygon buffers around points.
@@ -76,14 +72,10 @@ buffer.points.data.frame = function(points, width, byid, quadsegs=10, ...) {
 #' @method buffer.points SpatialPointsDataFrame
 #' @export
 buffer.points.SpatialPointsDataFrame = function(points, width, byid, quadsegs=10, ...) {
-    buffer = rgeos::gBuffer(points, width=width, byid=byid, quadsegs=quadsegs, ...)
-    if (!methods::is(buffer, "SpatialPolygonsDataFrame")) {
-        # Data will be lacking if byid is FALSE.
-        data = data.frame(eid=seq_len(length(buffer@polygons)))
-        rownames(data) =  unlist(lapply(buffer@polygons, function(x) x@ID))
-        buffer = sp::SpatialPolygonsDataFrame(buffer, data)
-    }
-    return(buffer)
+    stop(
+        "The function 'buffer.points' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
 
 #' Create polygon buffers around polygons.
@@ -125,12 +117,8 @@ buffer.polys.list = function(polys, width, byid, quadsegs=10, ...) {
 #' @method buffer.polys SpatialPolygonsDataFrame
 #' @export
 buffer.polys.SpatialPolygonsDataFrame = function(polys, width, byid, quadsegs=10, ...) {
-    buffer = rgeos::gBuffer(polys, width=width, byid=byid, quadsegs=quadsegs, ...)
-    if (!methods::is(buffer, "SpatialPolygonsDataFrame")) {
-        # Data will be lacking if byid is FALSE.
-        data = data.frame(eid=seq_len(length(buffer@polygons)))
-        rownames(data) =  unlist(lapply(buffer@polygons, function(x) x@ID))
-        buffer = sp::SpatialPolygonsDataFrame(buffer, data)
-    }
-    return(buffer)
+    stop(
+        "The function 'buffer.polys' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
