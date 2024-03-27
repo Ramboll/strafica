@@ -1,6 +1,6 @@
 # -*- coding: us-ascii-unix -*-
 
-#' Read points, lines or polygons from a MapInfo TAB file.
+#' This function has been removed from the package. Use `sf::st_read()` instead.
 #' @param fname name of MapInfo TAB file.
 #' @param stringsAsFactors should character vector be converted to factors?
 #' @param encoding character encoding used in code{fname}.
@@ -8,21 +8,9 @@
 #' @return A \code{Spatial*DataFrame} object.
 #' @export read.mapinfo
 read.mapinfo = function(fname, stringsAsFactors=FALSE, encoding="CP1252", ...) {
-    shapes = rgdal::readOGR(fname,
-                            layer=rgdal::ogrListLayers(fname)[1],
-                            stringsAsFactors=FALSE,
-                            encoding="",
-                            use_iconv=FALSE,
-                            ...)
-
-    # GDAL's encoding handling varies by platform,
-    # let's do the encoding conversion ourselves.
-    shapes@data = recode(shapes@data, encoding, "UTF-8")
-    if (stringsAsFactors) {
-        for (i in which(sapply(shapes@data, is.character)))
-            shapes@data[,i] = factor(shapes@data[,i])
-    }
-    return(shapes)
+    stop(
+        "The function 'read.mapinfo' has been removed from this package."
+    )
 }
 
 #' Read bounding box from MapInfo TAB file.
@@ -75,7 +63,8 @@ read.mapinfo.png = local({
     }
 })
 
-#' Write points, lines or polygons to a MapInfo TAB file.
+#' This function has been removed from the package. Use `sf::st_write()`
+#' instead.
 #'
 #' Requires \code{ogr2ogr} in \code{$PATH}.
 #' @param shapes a \code{Spatial*DataFrame} object.
@@ -83,140 +72,19 @@ read.mapinfo.png = local({
 #' @param epsg projection code, see \code{\link{list.projections}}.
 #' @export write.mapinfo
 write.mapinfo = function(shapes, fname, epsg) {
-    replname = function(extension, fname="")
-        gsub("\\.TAB$", extension, fname, ignore.case=TRUE)
-    stopifnot(grepl("\\.TAB$", fname))
-    if (is.na(proj.ogr.mapinfo(epsg)))
-        stop(sprintf("EPSG %s not supported", epsg))
-    shapes@data = recode(shapes@data, NULL, "CP1252")
-    messagef("Writing '%s'...", fname)
-    # Due to writeOGR failing to overwrite files,
-    # write to tempdir and copy on from there.
-    tempname = tempfile(fileext=".TAB")
-    projname = replname(".PRJ", tempname)
-    extensions = c(".DAT", ".ID", ".MAP", ".TAB")
-    upper = sapply(toupper(extensions), replname, tempname)
-    lower = sapply(tolower(extensions), replname, tempname)
-    tempnames = c(upper, lower, projname)
-    layer = gsub("\\..*$", "", basename(fname))
-    unlink(tempnames)
-    rgdal::writeOGR(shapes, tempname, layer=layer, driver="MapInfo File")
-    if (!file.exists(tempname)) {
-        # GDAL forces lower- and uppercase filename
-        # extensions inconsistently across platforms.
-        tempname = replname(".tab", tempname)
-        stopifnot(file.exists(tempname))
-    }
-    tempname2 = replname("-2.TAB", tempname)
-    tempnames = c(tempnames, sapply(toupper(extensions), replname, tempname2))
-    tempnames = c(tempnames, sapply(tolower(extensions), replname, tempname2))
-    # Since Proj.4 definitions are often bad,
-    # overwrite the projection info with our own definition.
-    cat(proj.ogr.mapinfo(epsg), file=projname)
-    Sys.sleep(1)
-    system(sexpf('ogr2ogr -f "MapInfo File"',
-                 "-a_srs {shQuote(projname)}",
-                 "{shQuote(tempname2)}",
-                 "{shQuote(tempname)}"))
-
-    for (extension in extensions) {
-        src = replname(extension, tempname2)
-        if (!file.exists(src)) {
-            # GDAL forces lower- and uppercase filename
-            # extensions inconsistently across platforms.
-            src = replname(tolower(extension), tempname2)
-            stopifnot(file.exists(src))
-        }
-        dst = replname(extension, fname)
-        file.copy(src, dst, overwrite=TRUE)
-    }
-    Sys.sleep(1)
-    unlink(tempnames)
-    return(invisible())
+    stop(
+        "The function 'write.mapinfo' has been removed from this package."
+    )
 }
 
-#' Write points, lines or polygons to a MapInfo MIF file.
+#' This function has been removed from the package. Use `sf::st_write()`
+#' instead.
 #' @param shapes a \code{Spatial*DataFrame} object.
 #' @param fname name of the MapInfo MIF file to write.
 #' @param epsg projection code, see \code{\link{list.projections}}.
 #' @export write.mif
 write.mif = function(shapes, fname, epsg) {
-    stopifnot(grepl("\\.MIF$", fname))
-    if (is.na(proj.mapinfo(epsg)))
-        stop(sprintf("EPSG %s not supported", epsg))
-    # Character encoding needs to match the 'Charset'
-    # written to the MIF-file. CP1252 is a good default.
-    shapes@data = recode(shapes@data, NULL, "CP1252")
-    sp::proj4string(shapes) = sp::CRS(proj.proj4(epsg))
-    messagef("Writing '%s'...", fname)
-    # Due to writeOGR failing to overwrite files,
-    # write to tempdir and copy on from there.
-    tempmif = tempfile(fileext=".MIF")
-    tempmid = gsub("\\.MIF$", ".MID", tempmif)
-    layer = gsub("\\..*$", "", basename(fname))
-    unlink(c(tempmif, tempmid))
-    rgdal::writeOGR(shapes,
-                    tempmif,
-                    layer=layer,
-                    driver="MapInfo File",
-                    dataset_options="FORMAT=MIF")
-    
-    # GDAL forces lower- and uppercase filename
-    # extensions inconsistently across platforms.
-    if (file.exists(gsub("MIF$", "mif", tempmif)))
-        file.rename(gsub("MIF$", "mif", tempmif), tempmif)
-    if (file.exists(gsub("MID$", "mid", tempmid)))
-        file.rename(gsub("MID$", "mid", tempmid), tempmid)
-    # GDAL writes the data table (MID-file) and the geometry
-    # in the MIF-file correctly, but not the MIF-file header.
-    # Let's write a correct header and append geometry to that.
-    file.copy(tempmid, gsub("\\.MIF", ".MID", fname), overwrite=TRUE)
-    data = as.data.frame(shapes)
-    colnames(data) = gsub("coords.x1", "x", colnames(data))
-    colnames(data) = gsub("coords.x2", "y", colnames(data))
-    fout = file(fname, "w", encoding="CP1252")
-    catn('Version   750', file=fout)
-    catn('Charset "WindowsLatin1"', file=fout)
-    catn('Delimiter ","', file=fout)
-    catn(proj.mapinfo(epsg), file=fout)
-    catn(sprintf("Columns %d", ncol(data)), file=fout)
-    for (i in seq_along(data)) {
-        cat(sprintf("  %s ", colnames(data)[i]), file=fout)
-        if (is.logical(data[,i])) {
-            catn("Logical", file=fout)
-        } else if (is.integer(data[,i])) {
-            catn("Integer", file=fout)
-        } else if (is.numeric(data[,i])) {
-            catn("Float", file=fout)
-        } else if (is.character(data[,i])) {
-            # This might return incorrect results with
-            # invalid multibyte strings etc.
-            n = nchar(data[,i], type="width")
-            n = max(n, 1, na.rm=TRUE)
-            catn(sprintf("Char(%d)", n), file=fout)
-        } else {
-            stop(sprintf("Unrecognized column type for %s: %s",
-                         colnames(data)[i],
-                         class(data[,i])))
-
-        }
-    }
-    catn("Data", file=fout)
-    fin = file(tempmif, "r")
-    in.header = TRUE
-    while (TRUE) {
-        if (in.header) {
-            line = readLines(fin, 1)
-            if (length(line) == 0) break
-            in.header = !grepl("^Data$", line)
-        } else {
-            lines = readLines(fin, 1000000)
-            if (length(lines) == 0) break
-            writeLines(lines, fout)
-        }
-    }
-    close(fin)
-    close(fout)
-    unlink(c(tempmif, tempmid))
-    return(invisible())
+    stop(
+        "The function 'write.mif' has been removed from this package."
+    )
 }

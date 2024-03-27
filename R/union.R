@@ -35,17 +35,10 @@ aggregate.polys.list = function(polys, by, data=NULL) {
 #' @method aggregate.polys SpatialPolygonsDataFrame
 #' @export
 aggregate.polys.SpatialPolygonsDataFrame = function(polys, by, data=NULL) {
-    polys@data$.aggregate.id = do.call(
-        classify, polys@data[,by,drop=FALSE])
-    fulldata = polys@data
-    polys = rgeos::gUnaryUnion(polys, polys@data$.aggregate.id)
-    aggdata = data.frame(.aggregate.id=slots(polys@polygons, "ID"))
-    fulldata$.aggregate.id = as.character(fulldata$.aggregate.id)
-    fulldata = fulldata[,c(".aggregate.id", by)]
-    aggdata = leftjoin(aggdata, fulldata, by=".aggregate.id")
-    if (!is.null(data))
-        aggdata = leftjoin(aggdata, data, by=by)
-    return(sp::SpatialPolygonsDataFrame(polys, data=aggdata))
+    stop(
+        "The function 'aggregate.polys' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
 
 #' Combine sets of polygons to form one polygon.
@@ -86,11 +79,8 @@ union.polys.list = function(...) {
 #' @method union.polys SpatialPolygonsDataFrame
 #' @export
 union.polys.SpatialPolygonsDataFrame = function(...) {
-    sets = list(...)
-    if (length(sets) == 0) return(NULL)
-    for (i in seq_along(sets)[-1])
-        sets[[1]] = rgeos::gUnion(sets[[1]], sets[[i]])
-    polys = rgeos::gUnaryUnion(sets[[1]])
-    data = data.frame(eid=1L)
-    return(sp::SpatialPolygonsDataFrame(polys, data=data))
+    stop(
+        "The function 'union.polys' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }

@@ -69,41 +69,9 @@ circles = function(xc, yc, radius, n=100) {
 #' @return A list with three data frames: data, outlines and areas.
 #' @export trace.grid
 trace.grid = function(grid, cell.size, by=NULL) {
-    if (is.null(by)) {
-        messagef("Tracing grid with %d cells...", nrow(grid))
-        # It would be faster to convert to a grid object (SpatialPixels,
-        # SpatialGrid, etc.), but it is not obvious how to trace that;
-        # gUnion functions want SpatialPolygons.
-        shapes = grid.to.sp(grid, cell.size)
-        shapes = rgeos::gUnaryUnion(shapes)
-        n = length(shapes@polygons)
-        data = data.frame(dummy=rep(1L, n))
-        shapes = sp::SpatialPolygonsDataFrame(shapes, data=data)
-        polys = sp.to.polys(shapes)
-        polys$data$dummy = NULL
-        polys$areas = attach.holes(polys$outlines)
-    } else {
-        id = do.call(classify, grid[,by,drop=FALSE])
-        ids = sort(unique(id))
-        messagef("Tracing grid with %d cells in %d parts...",
-                 nrow(grid), length(ids))
-
-        # grid.to.sp uses mclapply, so this is a second level of
-        # parallelization, but usually it shouldn't be a problem
-        # and should speed up gUnaryUnion and sp conversions.
-        polys = mclapply.stop(seq_along(ids), function(i) {
-            grid = grid[which(id == ids[i]),,drop=FALSE]
-            polys = suppressMessages(trace.grid(grid, cell.size))
-            polys$data[,by] = rep(grid[1,by], each=nrow(polys$data))
-            polys$data$eid = polys$outlines$eid = polys$areas$eid = i
-            return(polys)
-        })
-        data = rbind_all(lapply(polys, getElement, "data"))
-        outlines = rbind_all(lapply(polys, getElement, "outlines"))
-        areas = rbind_all(lapply(polys, getElement, "areas"))
-        polys = list(data=data, outlines=outlines, areas=areas)
-    }
-    return(polys)
+    stop(
+        "The function 'trace.grids' has been removed from this package."
+    )
 }
 
 #' Find discrete Voronoi regions.

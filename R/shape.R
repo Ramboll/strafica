@@ -1,6 +1,6 @@
 # -*- coding: us-ascii-unix -*-
 
-#' Read points, lines or polygons from a shapefile.
+#' This function has been removed from the package. Use `sf::st_read()` instead.
 #' @param fname name of shapefile.
 #' @param stringsAsFactors should character vector be converted to factors?
 #' @param encoding character encoding used in code{fname}.
@@ -10,54 +10,20 @@
 #' @return A \code{Spatial*DataFrame} object.
 #' @export read.shape
 read.shape = function(fname, stringsAsFactors=FALSE, encoding="Latin1", ...) {
-    shapes = rgdal::readOGR(fname,
-                            layer=rgdal::ogrListLayers(fname)[1],
-                            stringsAsFactors=FALSE,
-                            encoding="",
-                            use_iconv=FALSE,
-                            integer64="allow.loss",
-                            ...)
-
-    # GDAL's encoding handling varies by platform,
-    # let's do the encoding conversion ourselves.
-    shapes@data = recode(shapes@data, encoding, "UTF-8")
-    if (stringsAsFactors) {
-        for (i in which(sapply(shapes@data, is.character)))
-            shapes@data[,i] = factor(shapes@data[,i])
-    }
-    return(shapes)
+    stop(
+        "The function 'read.shape' has been removed from this package."
+    )
 }
 
-#' Write points, lines or polygons to a shapefile.
+#' This function has been removed from the package. Use `sf::st_write()`
+#' instead.
 #' @param shapes a \code{Spatial*DataFrame} object.
 #' @param fname name of shapefile to write.
 #' @param epsg projection code, see \code{\link{list.projections}}.
 #' @param verbose a logical indicating whether or not to print out progress updates.
 #' @export write.shape
 write.shape = function(shapes, fname, epsg, verbose=TRUE) {
-    if (is.na(proj.shape(epsg)))
-        stop(sprintf("EPSG %s not supported", epsg))
-    # Latin 1 is the original standard DBF encoding.
-    shapes@data = recode(shapes@data, NULL, "Latin1")
-    if (verbose)
-        messagef("Writing '%s'...", fname)
-    # Due to writeOGR failing to overwrite files,
-    # write to tempdir and copy on from there.
-    tempname = tempfile(fileext=".shp")
-    extensions = c(".dbf", ".prj", ".shp", ".shx")
-    tempnames = sapply(extensions, function(x) gsub("\\.shp$", x, tempname))
-    layer = gsub("\\..*$", "", basename(fname))
-    unlink(tempnames)
-    rgdal::writeOGR(shapes, tempname, layer=layer, driver="ESRI Shapefile")
-    # Since Proj.4 definitions are often bad,
-    # overwrite the projection file with our own definition.
-    cat(proj.shape(epsg), file=gsub("\\.shp$", ".prj", tempname))
-    for (extension in extensions) {
-        src = gsub("\\.shp$", extension, tempname)
-        dst = gsub("\\.shp$", extension, fname)
-        file.copy(src, dst, overwrite=TRUE)
-        Sys.sleep(1)
-        unlink(src)
-    }
-    return(invisible())
+    stop(
+        "The function 'write.shape' has been removed from this package."
+    )
 }
