@@ -32,24 +32,10 @@ drop.points.data.frame = function(points, ...) {
 #' @method drop.points SpatialPointsDataFrame
 #' @export
 drop.points.SpatialPointsDataFrame = function(points, ...) {
-    dots = list(...)
-    if (length(dots) == 1 && is.data.frame(dots[[1]])) {
-        # Polygon outline data frame.
-        to = polys.to.sp(dots[[1]])
-    } else if (length(dots) == 1 && methods::is(dots[[1]], "SpatialPolygonsDataFrame")) {
-        # SpatialPolygonsDataFrame object.
-        to = dots[[1]]
-    } else if (length(dots) == 4) {
-        # Bounding box coordinates (for legacy compatibility).
-        names(dots) = c("xmin", "xmax", "ymin", "ymax")
-        to = bbox.to.sp(dots)
-    } else {
-        stop("Bad arguments for bounds")
-    }
-    message("Dropping points outside bounding polygon...")
-    sp::proj4string(points) = sp::proj4string(to) = ""
-    keep = which(rgeos::gContains(to, points, byid=TRUE))
-    return(points[keep,,drop=FALSE])
+    stop(
+        "The function 'drop.points' for SpatialLinesDataFrame objects has",
+        "been removed from this package."
+    )
 }
 
 #' Drop shapes outside bounding box.

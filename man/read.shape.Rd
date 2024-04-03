@@ -2,7 +2,7 @@
 % Please edit documentation in R/shape.R
 \name{read.shape}
 \alias{read.shape}
-\title{Read points, lines or polygons from a shapefile.}
+\title{This function has been removed from the package. Use `sf::st_read()` instead.}
 \usage{
 read.shape(fname, stringsAsFactors = FALSE, encoding = "Latin1", ...)
 }
@@ -21,5 +21,5 @@ but in reality this will vary.}
 A \code{Spatial*DataFrame} object.
 }
 \description{
-Read points, lines or polygons from a shapefile.
+This function has been removed from the package. Use `sf::st_read()` instead.
 }

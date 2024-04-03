@@ -34,39 +34,6 @@ get_dummy_lines_as_sp = function() {
     return(lines_as_spdf)
 }
 
-
-test_that("with verbose option being unset, there will be messages when writing out a shapefile", {
-    dummy_epsg_code = 3067
-    dummy_lines_spdf = get_dummy_lines_as_sp()
-    dummy_file_name_shp = tempfile(fileext = ".shp")
-    expect_message(
-        strafica::write.shape(
-            dummy_lines_spdf,
-            dummy_file_name_shp,
-            epsg = dummy_epsg_code
-        ),
-        NULL
-    )
-    remove_all_shape_file_parts(dummy_file_name_shp)
-})
-
-test_that("with verbose=FALSE, there will be no messages when writing out a shapefile", {
-    dummy_epsg_code = 3067
-    dummy_lines_spdf = get_dummy_lines_as_sp()
-    dummy_file_name_shp = tempfile(fileext = ".shp")
-    expect_message(
-        strafica::write.shape(
-            dummy_lines_spdf,
-            dummy_file_name_shp,
-            epsg = dummy_epsg_code,
-            verbose = FALSE
-        ),
-        NA
-    )
-    remove_all_shape_file_parts(dummy_file_name_shp)
-})
-
-
 test_that("verbose=FALSE option can suppress messages with sp.to.lines", {
     dummy_lines_spdf = get_dummy_lines_as_sp()
     expect_message(
@@ -92,44 +59,6 @@ test_that("verbose=FALSE option can suppress messages with lines.to.sp", {
         strafica::lines.to.sp(
             dummy_lines$lines,
             dummy_lines$data,
-            verbose = FALSE
-        ),
-        NA
-    )
-})
-
-test_that("verbose=FALSE option can suppress output with sp.to.polys", {
-    spatial_data_frame_polys = strafica::read.geojson(
-        "test_data_two_polygons.geojson",
-        verbose = FALSE,
-    )
-    expect_message(
-        strafica::sp.to.polys(spatial_data_frame_polys),
-        NULL
-    )
-    expect_message(
-        strafica::sp.to.polys(spatial_data_frame_polys, verbose = FALSE),
-        NA
-    )
-})
-
-test_that("verbose=FALSE option can suppress output with polys.to.sp", {
-    spatial_data_frame_polys = strafica::read.geojson(
-        "test_data_two_polygons.geojson",
-        verbose = FALSE,
-    )
-    spatial_polygons_as_list = strafica::sp.to.polys(spatial_data_frame_polys)
-    expect_message(
-        strafica::polys.to.sp(
-            spatial_polygons_as_list$outlines,
-            spatial_polygons_as_list$data,
-        ),
-        NULL
-    )
-    expect_message(
-        strafica::polys.to.sp(
-            spatial_polygons_as_list$outlines,
-            spatial_polygons_as_list$data,
             verbose = FALSE
         ),
         NA
