@@ -1,6 +1,10 @@
 strafica
 ========
 
+<!-- badges: start -->
+[![Lifecycle: superseded](https://img.shields.io/badge/lifecycle-superseded-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#superseded)
+<!-- badges: end -->
+
 [![Build Status](https://dev.azure.com/rfidevops/DML/_apis/build/status/Ramboll.strafica?branchName=refs%2Fpull%2F26%2Fmerge)](https://dev.azure.com/rfidevops/DML/_build/latest?definitionId=89&branchName=refs%2Fpull%2F26%2Fmerge)
 
 strafica is a custom base package for R that provides a miscellaneous
